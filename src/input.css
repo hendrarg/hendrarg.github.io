@@ -24,3 +24,27 @@ body {
 #dark-toggle:checked ~ label div.toggle-circle {
   @apply translate-x-3;
 }
+
+/* Portfolio carousel — 1 center, 2 sides + 1 back (“tenggelam”) */
+#portfolio-carousel-root {
+  perspective: min(100vw, 1200px);
+  perspective-origin: 50% 40%;
+}
+#portfolio-carousel-track {
+  transform-style: preserve-3d;
+}
+.portfolio-slide {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(100%, 40rem);
+  will-change: transform, opacity, filter;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.55s ease, filter 0.55s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-slide {
+    transition-duration: 0.01ms;
+  }
+}
