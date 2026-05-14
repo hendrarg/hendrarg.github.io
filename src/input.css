@@ -48,3 +48,19 @@ body {
     transition-duration: 0.01ms;
   }
 }
+
+/* Portfolio slide thumbnails — same 16:9 frame (puzzle, Appium, etc.) */
+.portfolio-slide-frame {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+.portfolio-slide-frame > img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
