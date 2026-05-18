@@ -133,7 +133,7 @@ if (localStorage.theme === "dark" || (!("theme" in localStorage) && window.match
         slide.style.transform = `translate3d(calc(-50% + ${offsetX}px), calc(-50% + ${sunkY}px), 0) scale(${m.s}) translate3d(0,0,-50px) rotateY(${-rotY}deg)`;
         slide.style.opacity = "0.88";
         slide.style.filter = "brightness(0.92)";
-      } else if (diff === 3) {
+      } else if (diff === n - 1) {
         slide.style.zIndex = "20";
         slide.style.pointerEvents = "none";
         slide.setAttribute("aria-hidden", "true");
