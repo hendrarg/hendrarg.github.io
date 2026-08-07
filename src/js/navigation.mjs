@@ -1,3 +1,5 @@
+export const navObserverThresholds = [0, 0.05, 0.2, 0.5, 0.75];
+
 export function selectActiveSection(entries) {
   const active = entries
     .filter((entry) => entry.isIntersecting)
@@ -68,7 +70,7 @@ export function initNavigation({ document, window }) {
           else link.removeAttribute("aria-current");
         }
       },
-      { rootMargin: "-22% 0px -58%", threshold: [0.05, 0.2, 0.5, 0.75] },
+      { rootMargin: "-22% 0px -58%", threshold: navObserverThresholds },
     );
     sections.forEach((section) => navObserver.observe(section));
     cleanups.push(() => navObserver.disconnect());
