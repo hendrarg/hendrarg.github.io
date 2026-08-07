@@ -1,835 +1,386 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="./dist/output.css" />
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script>
-      if (localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    </script>
-    <title>Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="QA Engineer with 5+ years of experience building reliable Playwright automation, performance tests, and AI-assisted QA workflows."
+    />
+    <meta name="theme-color" content="#100c24" />
+    <link rel="stylesheet" href="dist/output.css" />
+    <title>Hendra Rizal Gunawan — QA Engineer</title>
   </head>
-  <body class="overflow-x-hidden">
-    <!-- Header Start -->
-    <header class="absolute top-0 left-0 right-0 z-10 flex items-center w-full bg-transparent">
-      <div class="container">
-        <div class="relative flex items-center justify-between flex-auto">
-          <div class="flex-auto px-0">
-            <a href="#home" class="inline-block py-6 text-2xl font-bold text-primary">Hendra Rizal</a>
-          </div>
-          <div class="flex items-center px-4">
-            <button id="hamburger" name="hamburger" type="button" class="absolute block right-4 lg:hidden">
-              <span class="transition duration-300 ease-in-out origin-top-left hamburger-line"></span>
-              <span class="transition duration-300 ease-in-out hamburger-line"></span>
-              <span class="transition duration-300 ease-in-out origin-bottom-left hamburger-line"></span>
-            </button>
-            <nav
-              id="nav-menu"
-              class="absolute right-4 top-full hidden w-full max-w-[250px] rounded-lg bg-white py-5 shadow-lg dark:bg-dark dark:shadow-slate-500 lg:static lg:block lg:max-w-full lg:rounded-none lg:bg-transparent lg:shadow-none lg:dark:bg-transparent"
-            >
-              <ul class="block lg:flex">
-                <li class="group">
-                  <a href="#home" class="flex py-2 mx-6 text-base nav-active text-dark group-hover:text-primary dark:text-white">Home</a>
-                </li>
-                <li class="group">
-                  <a href="#about" class="flex py-2 mx-6 text-base nav-active text-dark group-hover:text-primary dark:text-white">About</a>
-                </li>
-                <li class="group">
-                  <a href="#portfolio" class="flex py-2 mx-6 text-base nav-active text-dark group-hover:text-primary dark:text-white">Portfolio</a>
-                </li>
-                <li class="group">
-                  <a href="#clients" class="flex py-2 mx-6 text-base nav-active text-dark group-hover:text-primary dark:text-white">Clients</a>
-                </li>
-                <!-- <li class="group">
-                  <a href="#content" class="flex py-2 mx-6 text-base nav-active text-dark group-hover:text-primary dark:text-white">Content</a>
-                </li> -->
-                <li class="group">
-                  <a href="#contact" class="flex py-2 mx-6 text-base nav-active text-dark group-hover:text-primary dark:text-white">Contact</a>
-                </li>
-                <li class="flex items-center pl-8 mt-3 lg:mt-0">
-                  <div class="flex">
-                    <span class="mr-2 text-sm text-slate-500 dark:text-white">Light</span>
-                    <input type="checkbox" class="hidden" id="dark-toggle" />
-                    <label for="dark-toggle">
-                      <div class="flex items-center h-5 p-1 rounded-full cursor-pointer w-9 bg-slate-500">
-                        <div class="w-4 h-4 transition duration-300 ease-in-out bg-white rounded-full toggle-circle"></div>
-                      </div>
-                    </label>
-                    <span class="ml-2 text-sm text-slate-500 dark:text-white">Dark</span>
-                  </div>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
+  <body>
+    <a
+      class="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-white px-5 py-3 font-semibold text-ink transition focus:translate-y-0"
+      href="#main-content"
+    >
+      Skip to content
+    </a>
+
+    <header class="site-header fixed inset-x-0 top-0 z-50" data-header>
+      <div class="section-shell flex min-h-20 items-center justify-between gap-6">
+        <a class="text-xl font-extrabold tracking-tight text-white" href="#home" aria-label="Hendra RG, back to home">
+          Hendra<span class="text-violet">RG</span>
+        </a>
+        <button
+          class="menu-toggle grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white md:hidden"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+          data-menu-toggle
+        >
+          <span class="sr-only">Open navigation</span>
+          <span class="menu-toggle__lines" aria-hidden="true"></span>
+        </button>
+        <nav id="primary-menu" class="primary-menu" aria-label="Primary navigation" data-menu>
+          <a href="#impact" data-nav-link>Impact</a>
+          <a href="#journey" data-nav-link>Journey</a>
+          <a href="#craft" data-nav-link>Craft</a>
+          <a href="#work" data-nav-link>Work</a>
+          <a href="#contact" data-nav-link>Contact</a>
+        </nav>
       </div>
     </header>
-    <!-- Header End -->
-    <!-- Hero Section Start -->
-    <section id="home" class="pt-36 dark:bg-dark">
-      <div class="container">
-        <div class="flex flex-wrap items-center justify-between">
-          <div class="self-center w-full px-4 lg:w-1/2">
-            <h1 class="text-base font-semibold text-primary md:text-xl">
-              Halo everyone 👋, i am <span class="block mt-1 text-4xl font-bold text-dark dark:text-white lg:text-5xl">Hendra Rizal</span>
+
+    <main id="main-content">
+      <section id="home" class="hero-section" data-nav-section>
+        <div class="section-shell hero-layout">
+          <div class="hero-copy" data-reveal>
+            <p class="eyebrow">QA Engineer · Playwright · AI-Assisted Testing</p>
+            <h1 aria-label="Building reliable software, intelligently.">
+              Building reliable software,
+              <span>intelligently.</span>
             </h1>
-            <h2 class="mb-5 text-lg font-medium text-secondary lg:text-2xl">
-              <em>AI-Driven Testing</em> | <span class="text-dark dark:text-white"><em> SDET</em> </span>
-            </h2>
-            <p class="mb-10 font-medium leading-relaxed text-secondary">Planning prevents poor performance<span class="font-bold text-dark dark:text-white"> </span></p>
-            <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <p class="hero-role">QA Engineer — Building Reliable Automation with Playwright &amp; AI</p>
+            <p class="hero-summary">
+              I am Hendra Rizal Gunawan, a quality engineer with 5+ years of experience designing automation systems
+              across digital products, logistics, banking, and fintech. I turn requirements into dependable test
+              architecture, performance insight, and confident releases.
+            </p>
+            <div class="hero-actions">
+              <a class="button button--primary" href="#journey">Explore my journey</a>
               <a
-                href="https://api.whatsapp.com/send/?phone=%2B6281223292457&text&type=phone_number&app_absent=0"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center px-8 py-3 text-base font-semibold text-white rounded-full bg-primary hover:opacity-80 hover:shadow-lg"
-                >Contact me</a>
-              <a
-                href="./resource/CV_Hendra_Rizal_Gunawan.pdf"
+                class="button button--secondary"
+                href="resource/CV_Hendra_Rizal_Gunawan.pdf"
                 download="CV_Hendra_Rizal_Gunawan.pdf"
-                class="inline-flex items-center justify-center px-8 py-3 text-base font-semibold rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white hover:shadow-lg dark:text-primary dark:hover:text-white"
-                aria-label="Download resume PDF"
-                >Download resume</a>
+              >
+                Download resume
+              </a>
             </div>
           </div>
-          <div
-            class="relative mt-10 flex w-full justify-center px-4 pb-6 sm:mt-12 sm:pb-8 md:mt-14 md:pb-10 lg:mt-0 lg:w-1/2 lg:justify-end lg:self-end lg:pb-12 lg:pl-6 lg:pr-2 xl:pr-0"
-            data-aos="fade-up-left"
-            data-aos-duration="800"
-            data-aos-delay="300"
-          >
-            <!-- Wrapper: max width steps per breakpoint so photo + blob scale together -->
-            <div class="relative w-full max-w-[15.5rem] sm:max-w-[17.5rem] md:max-w-[20rem] lg:max-w-[24rem] xl:max-w-[27rem] 2xl:max-w-[30rem]">
-              <!-- Blob: position + scale tuned per viewport -->
-              <span
-                class="pointer-events-none absolute -bottom-10 left-1/2 z-0 w-[168%] max-w-[min(100vw,26rem)] origin-bottom -translate-x-1/2 -translate-y-2 scale-[1.12] opacity-100 transition-[transform,opacity,width] duration-500 ease-out sm:-bottom-9 sm:max-w-none sm:w-[142%] sm:translate-y-0 sm:scale-[0.94] md:-bottom-10 md:w-[132%] md:scale-95 lg:left-[46%] lg:w-[138%] lg:scale-100 xl:-bottom-11 xl:left-[48%] xl:w-[142%] xl:scale-110 2xl:scale-[1.2]"
-                aria-hidden="true"
-              >
-                <svg class="h-auto w-full" viewBox="-5 -15 215 200" width="215" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-                  <path
-                    fill="#14b8a6"
-                    d="M56.9,-53.2C67,-46.7,63.8,-23.4,62.5,-1.3C61.2,20.8,61.8,41.6,51.7,51.8C41.6,62.1,20.8,61.8,5.8,56C-9.2,50.2,-18.4,38.9,-32.3,28.6C-46.2,18.4,-64.8,9.2,-65,-0.3C-65.3,-9.7,-47.3,-19.5,-33.4,-26C-19.5,-32.5,-9.7,-35.7,6.8,-42.5C23.4,-49.3,46.7,-59.7,56.9,-53.2Z"
-                    transform="translate(100 100) scale(1.1)"
-                  />
-                </svg>
-              </span>
-              <img
-                src="img/pp.png"
-                alt="Hendra Rizal"
-                class="relative z-10 mx-auto block w-full max-w-full rounded-2xl object-cover object-center shadow-none outline-none ring-0 transition-transform duration-500 ease-out sm:rounded-3xl lg:translate-y-1 xl:translate-y-2"
-              />
+
+          <div class="quality-player" data-player data-state="paused" data-reveal>
+            <div class="quality-player__card glass-panel" data-player-card>
+              <div class="quality-player__surface" aria-hidden="true"></div>
+              <div class="quality-player__profile">
+                <img src="img/pp.png" alt="" />
+                <p><strong>Hendra Rizal</strong><span>QA Engineer at Yapp</span></p>
+                <span class="quality-player__live">LIVE QA</span>
+              </div>
+
+              <div class="quality-player__waveform" data-player-waveform aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+
+              <div class="quality-player__track">
+                <span class="quality-player__icon" aria-hidden="true">QS</span>
+                <p><strong>Release Confidence</strong><span>Playwright — AI-Assisted Regression</span></p>
+              </div>
+
+              <div class="quality-player__timeline">
+                <input data-player-progress aria-label="Track progress" type="range" min="0" max="100" value="0" />
+                <div><span data-player-elapsed>0:00</span><span data-player-duration>0:00</span></div>
+              </div>
+
+              <div class="quality-player__controls">
+                <button type="button" data-player-previous aria-label="Restart track from the previous control">|&lt;</button>
+                <button type="button" class="quality-player__play" data-player-toggle aria-label="Play Release Confidence">
+                  <span data-player-toggle-icon aria-hidden="true">▶</span>
+                </button>
+                <button type="button" data-player-next aria-label="Restart track from the next control">&gt;|</button>
+              </div>
+              <p class="quality-player__status" data-player-status role="status" aria-live="polite"></p>
+              <audio data-player-audio preload="metadata">
+                <source src="resource/urangsunda.webm" type="audio/webm" />
+              </audio>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Hero Section End -->
+      </section>
 
-    <!-- About Section Start -->
-    <section id="about" class="pt-32 pb-32 dark:bg-dark">
-      <div class="overflow-x-hidden countainer">
-        <div class="flex flex-wrap lg:ml-16">
-          <div class="self-center w-full px-4 mb-10 lg:w-1/2">
-            <h4 class="mb-3 text-lg font-semibold text-primary lg:text-2xl">About Me</h4>
-            <h2 class="mb-5 text-3xl font-bold text-dark dark:text-white lg:text-4xl">Software Development Engineer in Test (SDET)</h2>
-            <p class="max-w-xl text-base font-medium text-secondary lg:text-lg">
-              Software Development Engineer in Test (SDET) with 4+ years of experience in the software industry. I specialize in building scalable test automation frameworks across web, mobile, and API platforms. Detail-oriented and proactive, I thrive in Agile environments and am passionate about integrating AI into modern QA workflows to deliver faster, smarter, and more reliable software.
+      <section id="impact" class="impact-section" data-nav-section>
+        <div class="section-shell">
+          <h2 class="sr-only">Career impact</h2>
+          <dl class="impact-grid glass-panel" data-reveal>
+            <div><dt>Experience</dt><dd>5+ years</dd><p>in quality engineering</p></div>
+            <div><dt>Regression impact</dt><dd>60% → 90%</dd><p>successful execution</p></div>
+            <div><dt>Product reach</dt><dd>4 domains</dd><p>digital, logistics, banking, fintech</p></div>
+            <div><dt>Modern workflow</dt><dd>AI-assisted</dd><p>automation and test generation</p></div>
+          </dl>
+        </div>
+      </section>
+
+      <section id="about" class="content-section" data-nav-section>
+        <div class="section-shell about-layout">
+          <div class="section-copy" data-reveal>
+            <p class="eyebrow">About the engineer</p>
+            <h2>Quality is a system, not a final checkpoint.</h2>
+            <p>
+              I build quality practices that connect product intent, reliable automation, performance feedback, and
+              release decisions. My work spans web, mobile, desktop, and API testing, with a growing focus on using AI
+              to make test design and maintenance faster without losing engineering judgment.
+            </p>
+            <p>
+              At Yapp, I shape Playwright E2E and API architecture while exploring Hermes-assisted workflows that turn
+              product requirements into structured test cases. Earlier roles taught me how to modernize legacy suites,
+              support complex banking flows, and build automation capability from the ground up.
             </p>
           </div>
-          <div class="w-full px-4 lg:w-1/2">
-            <h3 class="mb-5 text-3xl font-semibold text-dark dark:text-white lg:pt-14 lg:text-4xl">My Skills</h3>
-            <p class="mb-6 text-base font-medium text-secondary lg:text-lg">
-              I build and maintain automation frameworks using Playwright, Selenium, Appium, Cypress, Robot Framework, Katalon Studio, and WebdriverIO with BDD approach using Cucumber. For performance testing I use K6 and JMeter, and for API testing Postman and Rest-Assured. I work with JavaScript, TypeScript, Java, and Python, integrated with CI/CD pipelines via Jenkins and GitHub Actions. I also actively leverage AI tools for test generation, failure analysis, and automation maintenance.
-            </p>
-            <div class="flex items-center">
-              <!-- Youtube -->
-              <a
-                href="https://www.youtube.com/channel/UCZAkakv1fGCYcI-wt_bgt5g"
-                target="_blank"
-                class="flex items-center justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-              >
-                <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <title>YouTube</title>
-                  <path
-                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-                  />
-                </svg>
-              </a>
-              <!-- Instagram -->
-              <a
-                href="https://www.instagram.com/hendra.rizalgunawan/?hl=id"
-                target="_blank"
-                class="flex items-center justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-              >
-                <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <title>Instagram</title>
-                  <path
-                    d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"
-                  />
-                </svg>
-              </a>
-              <!-- Twitter -->
-              <a
-                href="https://www.twitter.com/hendrarg"
-                target="_blank"
-                class="flex items-center justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-              >
-                <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <title>Twitter</title>
-                  <path
-                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
-                  />
-                </svg>
-              </a>
-              <!-- Github -->
-              <a
-                href="https://github.com/hendrarg"
-                target="_blank"
-                class="flex items-center justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-              >
-                <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <title>GitHub</title>
-                  <path
-                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                  />
-                </svg>
-              </a>
-              <!-- Linkedin -->
-              <a
-                href="https://www.linkedin.com/in/hendra-rizal-gunawan-93978018b/"
-                target="_blank"
-                class="flex items-center justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-              >
-                <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <title>LinkedIn</title>
-                  <path
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                  />
-                </svg>
-              </a>
+
+          <div class="terminal glass-panel" data-terminal data-reveal aria-label="Quality engineer profile code">
+            <div class="terminal__bar" aria-hidden="true">
+              <span></span><span></span><span></span><strong>quality-profile.ts</strong>
             </div>
+            <ol class="terminal__code">
+              <li data-terminal-line><code><span class="token-keyword">const</span> qualityProfile = {</code></li>
+              <li data-terminal-line><code>  name: <span class="token-string">"Hendra Rizal Gunawan"</span>,</code></li>
+              <li data-terminal-line><code>  role: <span class="token-string">"QA Engineer"</span>,</code></li>
+              <li data-terminal-line><code>  experience: <span class="token-string">"5+ years"</span>,</code></li>
+              <li data-terminal-line><code>  current: <span class="token-string">"Yapp"</span>,</code></li>
+              <li data-terminal-line><code>  focus: [</code></li>
+              <li data-terminal-line><code>    <span class="token-string">"Playwright automation"</span>,</code></li>
+              <li data-terminal-line><code>    <span class="token-string">"Performance testing"</span>,</code></li>
+              <li data-terminal-line><code>    <span class="token-string">"AI-assisted QA"</span>,</code></li>
+              <li data-terminal-line><code>  ],</code></li>
+              <li data-terminal-line><code>  impact: <span class="token-string">"Regression success: 60% → 90%"</span>,</code></li>
+              <li data-terminal-line><code>  mindset: <span class="token-string">"Build confidence continuously"</span>,</code></li>
+              <li data-terminal-line><code>};<span class="terminal__cursor" aria-hidden="true"></span></code></li>
+            </ol>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- About Section End -->
+      </section>
 
-    <!-- Portfolio Section Start -->
-    <section id="portfolio" class="pt-32 pb-20 bg-slate-100 dark:bg-slate-800">
-      <div class="container">
-        <div class="w-full px-4" data-aos="fade-up" data-aos-duration="800">
-          <div class="max-w-xl mx-auto text-center sm:mb-5">
-            <h4 class="mb-2 text-lg font-semibold text-primary lg:text-2xl">Portfolio</h4>
-            <h2 class="mb-3 text-3xl font-bold text-dark dark:text-white sm:mb-4 sm:text-4xl lg:text-5xl">New Project</h2>
-            <p class="font-medium text-md text-secondary md:text-lg">A collection of practice projects from online courses and hands-on work.</p>
-          </div>
-        </div>
-
-        <div
-          id="portfolio-carousel-root"
-          class="mx-auto w-full max-w-6xl px-4 sm:px-6"
-          data-aos="fade-up"
-          data-aos-duration="900"
-          data-aos-delay="100"
-        >
-          <div class="relative flex min-h-[26rem] items-center justify-center sm:min-h-[34rem] lg:min-h-[40rem]">
-            <button
-              type="button"
-              id="portfolio-prev"
-              class="group absolute left-0 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-700 shadow-md transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40 dark:border-slate-600 dark:bg-slate-800/90 dark:text-slate-100 sm:left-1 sm:h-12 sm:w-12 lg:left-2"
-              aria-label="Proyek sebelumnya"
-            >
-              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              id="portfolio-next"
-              class="group absolute right-0 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-700 shadow-md transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40 dark:border-slate-600 dark:bg-slate-800/90 dark:text-slate-100 sm:right-1 sm:h-12 sm:w-12 lg:right-2"
-              aria-label="Proyek berikutnya"
-            >
-              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-            <ul
-              id="portfolio-carousel-track"
-              class="relative mx-auto h-full min-h-[24rem] w-full max-w-6xl touch-pan-y sm:min-h-[30rem] lg:min-h-[36rem]"
-              style="transform-style: preserve-3d"
-            >
-              <li
-                class="portfolio-slide"
-                data-index="0"
-                data-title="Cypress With BDD"
-                data-desc="Automation using Cypress and Cucumber"
-                data-href="https://github.com/hendrarg/Cypress-BDD"
-                data-cta="Buka repositori →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="1 of 8: Cypress With BDD"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/cypress.png" alt="Cypress BDD" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://github.com/hendrarg/Cypress-BDD"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="portfolio-slide"
-                data-index="1"
-                data-title="Loopstudios Website"
-                data-desc="Slicing web with Tailwind CSS"
-                data-href="https://github.com/hendrarg/loopstudios"
-                data-cta="Buka repositori →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="2 of 8: Loopstudios"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/loopstudios.png" alt="Loopstudios" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://github.com/hendrarg/loopstudios"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="portfolio-slide"
-                data-index="2"
-                data-title="Test Case"
-                data-desc="UI and API test case documentation"
-                data-href="https://docs.google.com/spreadsheets/d/1pVBdMFEdSd1t4S8kwO3iXD7S7IStWpfriXgP-JyaIbw/edit?gid=139859808#gid=139859808"
-                data-cta="Buka spreadsheet →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="3 of 8: Test Case"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/Test Case.png" alt="Test Case" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://docs.google.com/spreadsheets/d/1pVBdMFEdSd1t4S8kwO3iXD7S7IStWpfriXgP-JyaIbw/edit?gid=139859808#gid=139859808"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="portfolio-slide"
-                data-index="3"
-                data-title="Automaton API"
-                data-desc="API automation with Rest-Assured"
-                data-href="https://github.com/hendrarg/AutomationAPI"
-                data-cta="Buka repositori →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="4 of 8: Automaton API"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/automatonAPI.png" alt="Automation API" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://github.com/hendrarg/AutomationAPI"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="portfolio-slide"
-                data-index="4"
-                data-title="FastAPI in Python"
-                data-desc="QA challenge API with Robot Framework tests"
-                data-href="https://github.com/hendrarg/ADL-QA_CHALANGE"
-                data-cta="Buka repositori →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="5 of 8: FastAPI in Python"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/Fast API.png" alt="FastAPI in Python" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://github.com/hendrarg/ADL-QA_CHALANGE"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="portfolio-slide"
-                data-index="5"
-                data-title="Automation puzzle with Java"
-                data-desc="1to50 web puzzle — Java automation"
-                data-href="https://github.com/hendrarg/puzzle-1to50"
-                data-cta="Buka repositori →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="6 of 8: Automation puzzle with Java"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/puzzle.png" alt="1to50 puzzle automation" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://github.com/hendrarg/puzzle-1to50"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="portfolio-slide"
-                data-index="6"
-                data-title="Automation mobile testing with Appium"
-                data-desc="Java and TestNG mobile UI tests"
-                data-href="https://github.com/hendrarg/AppiumTest"
-                data-cta="Buka repositori →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="7 of 8: Automation mobile testing with Appium"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/appium.png" alt="Appium mobile automation" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://github.com/hendrarg/AppiumTest"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="portfolio-slide"
-                data-index="7"
-                data-title="Sauce Demo in Katalon"
-                data-desc="Automation using Katalon Studio"
-                data-href="https://github.com/hendrarg/Sauce-Demo-Test-in-Katalon"
-                data-cta="Buka repositori →"
-                role="group"
-                aria-roledescription="slide"
-                aria-label="8 of 8: Sauce Demo in Katalon"
-              >
-                <div class="group relative portfolio-slide-frame w-full overflow-hidden rounded-lg bg-slate-100 shadow-2xl ring-1 ring-slate-900/5 dark:bg-slate-800 dark:ring-white/10">
-                  <img src="img/katalon.png" alt="Sauce Demo in Katalon" />
-                  <div
-                    class="absolute bottom-0 z-10 flex h-0 w-full items-center justify-center overflow-hidden bg-neutral-800/85 opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100"
-                  >
-                    <a
-                      href="https://github.com/hendrarg/Sauce-Demo-Test-in-Katalon"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="px-4 py-2 text-sm text-white transition rounded-full bg-primary hover:opacity-90 hover:shadow-lg sm:text-base"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </li>
-            </ul>
+      <section id="journey" class="content-section journey-section" data-nav-section>
+        <div class="section-shell">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">The work journey</p>
+            <h2>Systems that became stronger with every chapter.</h2>
+            <p>Four roles, connected by a consistent goal: make complex software easier to trust.</p>
           </div>
 
-          <div
-            class="mt-2 min-h-[4.5rem] px-2 text-center sm:min-h-[5.5rem]"
-            id="portfolio-caption"
-            role="status"
-            aria-live="polite"
-          >
-            <h3 class="text-lg font-semibold text-dark dark:text-white sm:text-xl" id="portfolio-c-title">Cypress With BDD</h3>
-            <p class="mt-1 text-sm text-secondary sm:text-base" id="portfolio-c-desc">Automation using Cypress and Cucumber</p>
-            <a
-              class="mt-3 inline-block text-sm font-medium text-primary hover:underline sm:mt-4"
-              id="portfolio-c-link"
-              href="https://github.com/hendrarg/Cypress-BDD"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Buka repositori
-            </a>
-          </div>
+          <div class="journey" data-journey>
+            <div class="journey__line" data-journey-line aria-hidden="true"><span></span></div>
 
-          <div class="mt-4 flex items-center justify-center gap-2 sm:mt-5" id="portfolio-dots" role="tablist" aria-label="Pilih proyek"></div>
-        </div>
-      </div>
-    </section>
-    <!-- Portfolio Section End -->
-
-    <!-- Clients Section Start -->
-    <div id="clients" class="pt-32 pb-32 bg-slate-700 dark:bg-slate-300">
-      <div class="container overflow-x-hidden">
-        <div class="w-full px-4">
-          <div class="mx-auto mb-16 text-center">
-            <h4 class="mb-4 text-lg font-semibold text-primary lg:text-2xl">Clients</h4>
-            <h2 class="mb-4 text-3xl font-bold text-white dark:text-dark sm:text-4xl lg:text-5xl">Collaborated</h2>
-            <p class="font-medium text-md text-secondary md:text-lg">My experience working and collaborating in the technology industry.</p>
-          </div>
-        </div>
-        <div class="w-full px-4">
-          <div class="flex flex-wrap items-center justify-center">
-            <!-- <a
-              data-aos="flip-up"
-              data-aos-duration="800"
-              href="https://www.google.com/"
-              target="_blank"
-              class="mx-4 max-w-[120px] py-3 opacity-60 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0 lg:mx-6 xl:mx-8"
-            >
-              <img src="img/Google.png" alt="Google" />
-            </a> -->
-            <a
-              data-aos="flip-up"
-              data-aos-duration="800"
-              data-aos-delay="400"
-              href="https://bri.co.id"
-              target="_blank"
-              class="mx-4 max-w-[120px] py-3 opacity-60 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0 lg:mx-6 xl:mx-8"
-            >
-              <img src="img/BRI.png" alt="BRI" />
-            </a>
-            <a
-              data-aos="flip-up"
-              data-aos-duration="800"
-              data-aos-delay="500"
-              href="https://talent-tech.id/"
-              target="_blank"
-              class="mx-4 max-w-[120px] max-h-[144px] py-3 opacity-60 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0 lg:mx-6 xl:mx-8"
-            >
-              <img src="img/talent-tech.png" alt="talent-tech" />
-            </a>
-            <a
-              data-aos="flip-up"
-              data-aos-duration="800"
-              data-aos-delay="600"
-              href="https://lionparcel.com"
-              target="_blank"
-              class="mx-4 max-w-[120px] py-3 opacity-60 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0 lg:mx-6 xl:mx-8"
-            >
-              <img src="img/lionparcel.png" alt="Lion Parcel" />
-            </a>
-            <a
-              data-aos="flip-up"
-              data-aos-duration="800"
-              data-aos-delay="700"
-              href="https://www.msbu.co.id/"
-              target="_blank"
-              class="mx-4 max-w-[120px] py-3 opacity-60 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0 lg:mx-6 xl:mx-8"
-            >
-              <img src="img/msbugroup_logo.jpg" alt="MSBU Group" />
-            </a>
-            <a
-              data-aos="flip-up"
-              data-aos-duration="800"
-              data-aos-delay="800"
-              href="https://www.assetdata.io/"
-              target="_blank"
-              class="mx-4 max-w-[120px] py-3 opacity-60 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0 lg:mx-6 xl:mx-8"
-            >
-              <img src="img/assetdata.png" alt="assetdata" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Clients Section End -->
-
-    <!-- Content Section Start -->
-    <!-- <section id="content" class="pt-32 pb-32 bg-slate-100 dark:bg-dark">
-      <div class="container">
-        <div class="w-full px-4">
-          <div class="max-w-xl mx-auto mb-16 text-center">
-            <h4 class="mb-2 text-lg font-semibold text-primary lg:text-2xl">Content</h4>
-            <h2 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl lg:text-5xl">New Contents</h2>
-            <p class="font-medium text-md text-secondary md:text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta quasi debitis nostrum at.</p>
-          </div>
-        </div>
-        <div class="flex flex-wrap">
-          <div class="w-full px-4 lg:w-1/2 xl:w-1/3" data-aos="zoom-in" data-aos-duration="800">
-            <div class="mb-10 overflow-hidden bg-white shadow-lg rounded-xl dark:bg-slate-700">
-              <img src="https://source.unsplash.com/360x320?programming" alt="Programing" class="w-full" />
-              <div class="px-6 py-6">
-                <h3><a href="#" class="block mb-3 text-xl font-semibold truncate text-dark hover:text-primary dark:text-white">Tips Belajar Programming</a></h3>
-                <p class="mb-6 text-base font-mendium text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, consectetur!</p>
-                <a href="#" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:opacity-80">Watch in Full</a>
+            <article class="milestone milestone--left" data-milestone data-illustration="prd">
+              <div class="milestone__node" aria-hidden="true"></div>
+              <div class="milestone__chapter">Chapter 01</div>
+              <div class="milestone__content glass-panel">
+                <p class="milestone__date">June 2026 — Present</p>
+                <h3>QA Engineer <span>at Yapp</span></h3>
+                <p>
+                  Building quality for a content creator monetization platform through Playwright E2E and API
+                  architecture, performance testing, and exploratory testing.
+                </p>
+                <ul><li>Playwright</li><li>API</li><li>Performance</li><li>Hermes AI</li></ul>
+                <p class="milestone__impact">Turning PRDs into structured test coverage with an AI-assisted workflow.</p>
               </div>
-            </div>
-          </div>
-          <div class="w-full px-4 lg:w-1/2 xl:w-1/3" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="300">
-            <div class="mb-10 overflow-hidden bg-white shadow-lg rounded-xl dark:bg-slate-700">
-              <img src="https://source.unsplash.com/360x320?mechanical+keyboard" alt="Mechanical Keyboard" class="w-full" />
-              <div class="px-6 py-6">
-                <h3><a href="#" class="block mb-3 text-xl font-semibold truncate text-dark hover:text-primary dark:text-white">Review Keyboard GMMK Pro</a></h3>
-                <p class="mb-6 text-base font-mendium text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet odio eum porro.</p>
-                <a href="#" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:opacity-80">Watch in Full</a>
+              <div class="journey-visual prd-visual" aria-label="Animated PRD scanner producing test scenarios">
+                <div class="prd-visual__document">
+                  <span></span><span></span><span></span><span></span>
+                  <i aria-hidden="true"></i>
+                </div>
+                <div class="prd-visual__cases"><span>AUTH-01</span><span>PAY-02</span><span>API-03</span></div>
               </div>
-            </div>
-          </div>
-          <div class="w-full px-4 lg:mx-auto lg:w-1/2 xl:w-1/3" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="600">
-            <div class="mb-10 overflow-hidden bg-white shadow-lg rounded-xl dark:bg-slate-700">
-              <img src="https://source.unsplash.com/360x320?coffee" alt="Coffee" class="w-full" />
-              <div class="px-6 py-6">
-                <h3><a href="#" class="block mb-3 text-xl font-semibold truncate text-dark hover:text-primary dark:text-white">Menikmati Secangkir Kopi</a></h3>
-                <p class="mb-6 text-base font-mendium text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, excepturi.</p>
-                <a href="#" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:opacity-80">Watch in Full</a>
+            </article>
+
+            <article class="milestone milestone--right" data-milestone data-illustration="migration">
+              <div class="milestone__node" aria-hidden="true"></div>
+              <div class="milestone__chapter">Chapter 02</div>
+              <div class="milestone__content glass-panel">
+                <p class="milestone__date">October 2025 — May 2026</p>
+                <h3>SDET <span>at Lion Parcel under MSBU</span></h3>
+                <p>
+                  Refactored Robot Framework automation and used AI assistance to accelerate migration toward a
+                  maintainable Playwright architecture for logistics workflows.
+                </p>
+                <ul><li>Robot Framework</li><li>Playwright</li><li>AI migration</li></ul>
+                <p class="milestone__impact">Raised regression execution success from 60% to 90%.</p>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- Content Section End -->
+              <div class="journey-visual migration-visual" aria-label="Animated migration radar connecting automation tools">
+                <div class="migration-visual__radar"><i aria-hidden="true"></i></div>
+                <span class="migration-visual__node migration-visual__node--robot">Robot</span>
+                <span class="migration-visual__node migration-visual__node--ai">AI</span>
+                <span class="migration-visual__node migration-visual__node--playwright">Playwright</span>
+              </div>
+            </article>
 
-    <!-- Contact Section Start -->
-    <section id="contact" class="pt-32 pb-32 dark:bg-slate-800">
-      <div class="container overflow-x-hidden">
-        <div class="w-full px-4">
-          <div class="max-w-xl mx-auto mb-16 text-center">
-            <h4 class="mb-2 text-lg font-semibold text-primary lg:text-2xl">Contact</h4>
-            <h2 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl lg:text-5xl">Contact Me</h2>
-            <p class="font-medium text-md text-secondary md:text-lg">Whatever you need, make feel free !</p>
-          </div>
-        </div>
-        <form action="https://formspree.io/f/xqkjodrn" method="POST">
-          <div class="w-full lg:mx-auto lg:w-2/3">
-            <div class="w-full px-4 mb-8">
-              <label for="name" class="dark:text-white">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                class="w-full p-3 rounded-md focus:outlinenone focus:ring1 bg-slate-200 text-dark focus:border-primary focus:ring-primary"
-                placeholder="Name"
-                name="name"
-                required
-              />
-            </div>
-            <div class="w-full px-4 mb-8">
-              <label for="email" class="dark:text-white">Your Email</label>
-              <input
-                type="email"
-                id="email"
-                class="w-full p-3 rounded-md focus:outlinenone focus:ring1 bg-slate-200 text-dark focus:border-primary focus:ring-primary"
-                name="email"
-                placeholder="Email"
-                required
-              />
-            </div>
-            <div class="w-full px-4 mb-8">
-              <label for="message" class="dark:text-white">Your Message</label>
-              <textarea
-                type="text"
-                id="message"
-                class="w-full h-32 p-3 rounded-md focus:outlinenone focus:ring1 bg-slate-200 text-dark focus:border-primary focus:ring-primary"
-                placeholder="Message"
-                name="message"
-                required
-              ></textarea>
-            </div>
-            <div class="w-full px-4">
-              <button class="w-full px-6 py-3 text-base font-semibold text-white transition duration-500 rounded-full bg-primary hover:opacity-80 hover:shadow-lg">Send</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-    <!-- Contact Section End -->
+            <article class="milestone milestone--left" data-milestone data-illustration="regression">
+              <div class="milestone__node" aria-hidden="true"></div>
+              <div class="milestone__chapter">Chapter 03</div>
+              <div class="milestone__content glass-panel">
+                <p class="milestone__date">May 2024 — September 2025</p>
+                <h3>QA Automation Engineer <span>at Bank BRI under Talent Tech</span></h3>
+                <p>
+                  Automated N2N and API scenarios with Katalon and Cucumber, supporting complex credit card system
+                  modernization across SIT and UAT.
+                </p>
+                <ul><li>Katalon Studio</li><li>Cucumber</li><li>N2N</li><li>RPA</li></ul>
+                <p class="milestone__impact">Delivered full N2N coverage for selector-less desktop flows through RPA.</p>
+              </div>
+              <div class="journey-visual regression-visual" aria-label="Animated regression execution board">
+                <div><span>Authentication</span><i></i><b>PASS</b></div>
+                <div><span>Card flow</span><i></i><b>PASS</b></div>
+                <div><span>Settlement</span><i></i><b>PASS</b></div>
+                <div><span>Reporting</span><i></i><b>PASS</b></div>
+              </div>
+            </article>
 
-    <!-- Footer Section Start -->
-    <footer class="pt-24 pb-6 bg-dark">
-      <div class="container overflow-x-hidden">
-        <div class="flex flex-wrap">
-          <div class="w-full px-4 mb-12 font-medium text-slate-300 md:w-1/3 lg:items-center">
-            <h2 class="mb-5 text-4xl text-white text-bold">Hendra Rizal</h2>
-            <h3 class="mb-2 text-2xl text-bold">Address</h3>
-            <p>jendraljohn92@gmail.com</p>
-            <p>Jl. Pangandaran No. 008</p>
-            <p>Pangandaran</p>
-          </div>
-          <div class="flex flex-col w-full px-4 mb-12 md:w-1/3 md:items-center lg:items-center">
-            <ul class="text-slate-300">
-              <li><h3 class="mb-5 text-xl font-semibold text-white">Portfolio</h3></li>
-              <li>
-                <a href="https://github.com/hendrarg" target="_blank" class="inline-block mb-3 text-base hover:text-primary">GitHub Repository</a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/hendra-rizal-gunawan-93978018b" target="_blank" class="inline-block mb-3 text-base hover:text-primary">LinkedIn</a>
-              </li>
-            </ul>
-          </div>
-          <div class="flex flex-col w-full px-4 mb-12 md:w-1/3 md:items-center lg:items-center">
-            <ul class="text-slate-300">
-              <li><h3 class="mb-5 text-xl font-semibold text-white">Link</h3></li>
-              <li>
-                <a href="#home" class="inline-block mb-3 text-base hover:text-primary">Home</a>
-              </li>
-              <li>
-                <a href="#about" class="inline-block mb-3 text-base hover:text-primary">About</a>
-              </li>
-              <li>
-                <a href="#portfolio" class="inline-block mb-3 text-base hover:text-primary">Portfolio</a>
-              </li>
-              <li>
-                <a href="#clients" class="inline-block mb-3 text-base hover:text-primary">Clients</a>
-              </li>
-              <!-- <li>
-                <a href="#content" class="inline-block mb-3 text-base hover:text-primary">Content</a>
-              </li> -->
-              <li>
-                <a href="#contact" class="inline-block mb-3 text-base hover:text-primary">Contact</a>
-              </li>
-            </ul>
+            <article class="milestone milestone--right" data-milestone data-illustration="framework">
+              <div class="milestone__node" aria-hidden="true"></div>
+              <div class="milestone__chapter">Chapter 04</div>
+              <div class="milestone__content glass-panel">
+                <p class="milestone__date">January 2022 — September 2024</p>
+                <h3>SQA Engineer <span>at Asset Data Solution Sdn Bhd</span></h3>
+                <p>
+                  Established practical automation across web, mobile, API, and performance testing while supporting
+                  cross-platform asset management products.
+                </p>
+                <ul><li>Selenium</li><li>Appium</li><li>Rest-Assured</li><li>K6</li></ul>
+                <p class="milestone__impact">Built the team's first reusable automation practice from zero.</p>
+              </div>
+              <div class="journey-visual framework-visual" aria-label="Animated QA framework core with orbiting capabilities">
+                <strong>QA CORE</strong>
+                <span class="framework-visual__orbit framework-visual__orbit--one">Selenium</span>
+                <span class="framework-visual__orbit framework-visual__orbit--two">Appium</span>
+                <span class="framework-visual__orbit framework-visual__orbit--three">API</span>
+                <span class="framework-visual__orbit framework-visual__orbit--four">K6</span>
+              </div>
+            </article>
           </div>
         </div>
-        <div class="w-full pt-10 border-t border-slate-700">
-          <div class="flex justify-center mb-4">
-            <!-- Youtube -->
-            <a
-              href="https://www.youtube.com/kocosurvival"
-              target="_blank"
-              class="flex justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-            >
-              <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <title>YouTube</title>
-                <path
-                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-                />
-              </svg>
-            </a>
-            <!-- Instagram -->
-            <a
-              href="https://www.instagram.com/hendra.rizalgunawan/?hl=id"
-              target="_blank"
-              class="flex justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-            >
-              <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <title>Instagram</title>
-                <path
-                  d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"
-                />
-              </svg>
-            </a>
-            <!-- Twitter -->
-            <a
-              href="https://www.twitter.com/hendrarg"
-              target="_blank"
-              class="flex justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-            >
-              <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <title>Twitter</title>
-                <path
-                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
-                />
-              </svg>
-            </a>
-            <!-- Github -->
-            <a
-              href="https://github.com/hendrarg"
-              target="_blank"
-              class="flex justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-            >
-              <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <title>GitHub</title>
-                <path
-                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                />
-              </svg>
-            </a>
-            <!-- Linkedin -->
-            <a
-              href="https://www.linkedin.com/in/hendra-rizal-gunawan-93978018b"
-              target="_blank"
-              class="flex justify-center mr-3 border rounded-full h-9 w-9 border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
-            >
-              <svg role="img" width="20" class="fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <title>LinkedIn</title>
-                <path
-                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                />
-              </svg>
-            </a>
+      </section>
+
+      <section id="craft" class="content-section" data-nav-section>
+        <div class="section-shell">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Technical craft</p>
+            <h2>A practical toolkit for quality at every layer.</h2>
           </div>
-          <p class="text-xs font-medium text-center text-slate-500">
-            Made by <a href="https://instagram.com/hendra.rizalgunawan" target="_blank" class="text-xl font-bold text-primary">Hendra Rizal</a> Using
-            <a href="https://tailwindcss.com" target="_blank" class="relative text-xl font-bold h-fit w-fit text-sky-500"
-              >Tailwind CSS
-              <span class="absolute fill-current top-15 -right-5">
-                <svg width="20" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <title>Tailwind CSS</title>
-                  <path
-                    d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"
-                  />
-                </svg>
-              </span>
-            </a>
-          </p>
+          <div class="craft-grid">
+            <article class="glass-panel" data-reveal><h3>Automation</h3><p>Playwright · Selenium · Appium · Katalon Studio · Cypress · Robot Framework</p></article>
+            <article class="glass-panel" data-reveal><h3>BDD</h3><p>Cucumber integrations and business-readable scenario design</p></article>
+            <article class="glass-panel" data-reveal><h3>Performance</h3><p>K6 · JMeter · load, stress, and bottleneck analysis</p></article>
+            <article class="glass-panel" data-reveal><h3>API</h3><p>Postman · Rest-Assured · cURL · contract and integration testing</p></article>
+            <article class="glass-panel" data-reveal><h3>Languages</h3><p>JavaScript · TypeScript · Java · Python</p></article>
+            <article class="glass-panel" data-reveal><h3>Database</h3><p>SQL · DBeaver · data validation and investigation</p></article>
+            <article class="glass-panel" data-reveal><h3>DevOps &amp; CI/CD</h3><p>Git · Jenkins · GitHub Actions · automated pipelines</p></article>
+            <article class="glass-panel" data-reveal><h3>AI Workflows</h3><p>Prompt engineering · test generation · workflow design · skill roles · command structures</p></article>
+          </div>
         </div>
+      </section>
+
+      <section id="work" class="content-section" data-nav-section>
+        <div class="section-shell">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Selected work</p>
+            <h2>Practice made visible.</h2>
+            <p>Automation, API, mobile, and frontend exercises that document how I learn and build.</p>
+          </div>
+          <div class="project-grid">
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/cypress.png" alt="Cypress BDD project preview" />
+              <div><p>Cypress · Cucumber</p><h3>Cypress With BDD</h3><span>Browser automation using behavior-driven scenarios.</span><a href="https://github.com/hendrarg/Cypress-BDD" target="_blank" rel="noopener noreferrer">View repository</a></div>
+            </article>
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/loopstudios.png" alt="Loopstudios landing page preview" />
+              <div><p>Tailwind CSS · Frontend</p><h3>Loopstudios Website</h3><span>Responsive interface slicing practice with Tailwind CSS.</span><a href="https://github.com/hendrarg/loopstudios" target="_blank" rel="noopener noreferrer">View repository</a></div>
+            </article>
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/Test Case.png" alt="UI and API test case spreadsheet preview" />
+              <div><p>Test Design · Documentation</p><h3>UI &amp; API Test Cases</h3><span>Structured scenarios and coverage documentation.</span><a href="https://docs.google.com/spreadsheets/d/1pVBdMFEdSd1t4S8kwO3iXD7S7IStWpfriXgP-JyaIbw/edit?gid=139859808#gid=139859808" target="_blank" rel="noopener noreferrer">View spreadsheet</a></div>
+            </article>
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/automatonAPI.png" alt="REST-Assured API automation project preview" />
+              <div><p>Java · Rest-Assured</p><h3>REST-Assured API Automation</h3><span>Reusable API checks for service-level confidence.</span><a href="https://github.com/hendrarg/AutomationAPI" target="_blank" rel="noopener noreferrer">View repository</a></div>
+            </article>
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/Fast API.png" alt="Robot Framework API challenge preview" />
+              <div><p>Python · Robot Framework</p><h3>Robot Framework API Challenge</h3><span>API quality exercise backed by a FastAPI service.</span><a href="https://github.com/hendrarg/ADL-QA_CHALANGE" target="_blank" rel="noopener noreferrer">View repository</a></div>
+            </article>
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/puzzle.png" alt="Java puzzle automation preview" />
+              <div><p>Java · Browser Automation</p><h3>Java Puzzle Automation</h3><span>Automated problem-solving for the 1-to-50 web puzzle.</span><a href="https://github.com/hendrarg/puzzle-1to50" target="_blank" rel="noopener noreferrer">View repository</a></div>
+            </article>
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/appium.png" alt="Appium mobile automation project preview" />
+              <div><p>Appium · Java · TestNG</p><h3>Appium Mobile Automation</h3><span>Android UI automation and reusable mobile checks.</span><a href="https://github.com/hendrarg/AppiumTest" target="_blank" rel="noopener noreferrer">View repository</a></div>
+            </article>
+            <article class="project-card glass-panel" data-project-card data-reveal>
+              <img src="img/katalon.png" alt="Katalon Sauce Demo project preview" />
+              <div><p>Katalon Studio · Web</p><h3>Katalon Sauce Demo</h3><span>End-to-end commerce flow automation in Katalon.</span><a href="https://github.com/hendrarg/Sauce-Demo-Test-in-Katalon" target="_blank" rel="noopener noreferrer">View repository</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="credentials" class="content-section" data-nav-section>
+        <div class="section-shell credentials-layout">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Education &amp; certifications</p>
+            <h2>Foundations reinforced through continuous practice.</h2>
+          </div>
+          <div class="credentials-grid">
+            <article class="glass-panel" data-reveal>
+              <p>2019</p><h3>S1 Information System</h3><span>Universitas BSI Bandung</span>
+            </article>
+            <article class="glass-panel" data-reveal>
+              <p>2017</p><h3>D3 Informatics Management</h3><span>Universitas BSI Tasikmalaya</span>
+            </article>
+            <div class="certification-list glass-panel" data-reveal>
+              <h3>Udemy certifications</h3>
+              <ul>
+                <li>Test Automation with Katalon Studio and Selenium WebDriver</li>
+                <li>Appium Mobile Testing for Android and iOS</li>
+                <li>Cypress with Cucumber BDD Automation Testing Bootcamp</li>
+                <li>Playwright JS/TS Automation Testing from Scratch and Framework</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section" data-nav-section>
+        <div class="section-shell contact-panel glass-panel" data-reveal>
+          <div>
+            <p class="eyebrow">Start a conversation</p>
+            <h2>Need a QA engineer who can connect automation, AI, and release confidence?</h2>
+            <p>Let us talk about the product, the risks that matter, and the quality system it needs.</p>
+          </div>
+          <div class="contact-actions">
+            <a href="mailto:jendraljohn92@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/hendra-rizal-gunawan-93978018b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/hendrarg" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://wa.me/6281223292457" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="resource/CV_Hendra_Rizal_Gunawan.pdf" download="CV_Hendra_Rizal_Gunawan.pdf">Download Resume</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell">
+        <p><strong>Hendra Rizal Gunawan</strong><span>QA Engineer</span></p>
+        <div>
+          <a href="mailto:jendraljohn92@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/hendra-rizal-gunawan-93978018b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/hendrarg" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <small>© 2026 Hendra Rizal Gunawan</small>
       </div>
     </footer>
-    <!-- Footer Section End -->
-
-    <!-- Back to Top Start -->
-
-    <a href="#home" id="to-top" class="fixed bottom-4 right-4 z-[9999] hidden h-14 w-14 items-center rounded-full bg-primary p-4 transition duration-500 ease-in-out">
-      <span class="block w-5 h-5 m-auto transition-all duration-1000 ease-in-out rotate-45 border-t-2 border-l-2"></span>
-    </a>
-    <!-- Back to Top End -->
-    <script src="dist/script.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
   </body>
 </html>
