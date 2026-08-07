@@ -71,18 +71,41 @@ The impact row gives recruiters fast evidence:
 
 Only metrics explicitly present in the CV may be used.
 
-### 3. Work Journey
+### 3. About Terminal
 
-An interactive but readable vertical timeline presents:
+The About section pairs a concise personal statement with an animated code-editor panel inspired by the reference site's terminal composition.
+
+The left side explains Hendra's systems-oriented approach to quality engineering. The right side renders `quality-profile.ts` with line numbers, syntax highlighting, a blinking cursor, and staged line-by-line reveal. Its content is based on the latest CV:
+
+- Role: QA Engineer
+- Experience: 5+ years
+- Current employer: Yapp
+- Focus: Playwright automation, performance testing, and AI-assisted QA
+- Impact: regression success raised from 60% to 90%
+
+The terminal is presentational, not an editable shell. All lines are present in semantic HTML from initial load; animation only changes their reveal state. Reduced-motion and JavaScript-disabled modes show the complete profile immediately.
+
+### 4. Work Journey
+
+A scroll-driven vertical roadmap presents:
 
 1. QA Engineer at Yapp - June 2026 to present
 2. SDET at Lion Parcel under MSBU - October 2025 to May 2026
 3. QA Automation Engineer at Bank BRI under Talent Tech - May 2024 to September 2025
 4. SQA Engineer at Asset Data Solution Sdn Bhd - January 2022 to September 2024
 
-Each entry includes role, employer, dates, project context, concise responsibilities, tools, and key achievements. The timeline must remain fully readable without JavaScript.
+Each entry includes role, employer, dates, project context, concise responsibilities, tools, and key achievements. Chapters alternate between the left and right sides of a connected center line. The line fills in the scroll direction, each node glows when its milestone enters the viewport, and content reveals only when reached.
 
-### 4. Technical Craft
+Each chapter has an original, continuously living QA illustration rather than reusing one generic graphic:
+
+1. Yapp: a PRD scanner transforms product requirements into structured test scenarios
+2. Lion Parcel: a migration radar connects Robot Framework, AI assistance, and Playwright
+3. Bank BRI: a live N2N regression board animates module progress and execution status
+4. Asset Data Solution: a framework core is orbited by Selenium, Appium, API, and K6 capabilities
+
+The roadmap must remain fully readable without JavaScript. In reduced-motion mode, all milestones render immediately and the connecting line is shown complete.
+
+### 5. Technical Craft
 
 Skills are grouped by capability rather than shown as an undifferentiated logo wall:
 
@@ -95,7 +118,7 @@ Skills are grouped by capability rather than shown as an undifferentiated logo w
 - DevOps and CI/CD: Git, Jenkins, GitHub Actions, and pipelines
 - AI workflows: prompt engineering, AI-driven test generation, workflow design, skill roles, and command structures
 
-### 5. Selected Projects
+### 6. Selected Projects
 
 Replace the current 3D carousel with a responsive project grid that is faster to scan and easier to use with keyboard and touch input.
 
@@ -109,7 +132,7 @@ Each card contains:
 
 Project cards may use a small tilt effect, but it must be weaker than the hero player and never reduce readability.
 
-### 6. Education and Certifications
+### 7. Education and Certifications
 
 Present education and certifications as a compact credibility section:
 
@@ -117,7 +140,7 @@ Present education and certifications as a compact credibility section:
 - D3 Informatics Management, Universitas BSI Tasikmalaya, 2017
 - The four Udemy certifications listed in the latest CV
 
-### 7. Contact
+### 8. Contact
 
 Use direct, dependable contact actions:
 
@@ -129,7 +152,7 @@ Use direct, dependable contact actions:
 
 Do not include a contact form that has no real delivery backend.
 
-### 8. Footer
+### 9. Footer
 
 Use one compact footer with Hendra's name, current role, social links, and copyright. Remove repeated navigation and duplicated social icon groups.
 
@@ -166,6 +189,9 @@ The production implementation may tune exact depth and tilt values during respon
 - Sticky navigation highlights the active section
 - Smooth scrolling is used only when motion is allowed
 - Section reveals are brief and support content hierarchy
+- The About terminal reveals profile lines in sequence and shows all lines immediately when motion is reduced
+- The Work Journey line grows with scroll progress; milestones reveal through intersection observation and stay visible after activation
+- Every Work Journey illustration has its own lightweight looping animation after its chapter becomes visible
 - Desktop pointer interaction drives the 3D player
 - Touch devices receive a stable card with a subtle floating animation, without gyroscope or device-orientation permission
 - `prefers-reduced-motion` disables tilt, floating animation, and waveform motion
@@ -215,10 +241,13 @@ Before completion, verify:
 5. The 3D player produces a real `matrix3d` transform on pointer movement
 6. Player layers have distinct Z transforms and do not overlap or clip
 7. Play/pause changes waveform animation state
-8. Reduced-motion mode removes nonessential animation
-9. Keyboard navigation and focus indicators work
-10. JavaScript-disabled content remains readable
-11. No mojibake, placeholder text, invented metrics, or stale employment details remain
+8. The About terminal contains 13 semantic code lines and reveals them without removing content from the accessibility tree
+9. Work Journey chapters alternate left and right, the center line grows with scroll, and all four nodes activate at the correct milestones
+10. Yapp, Lion Parcel, Bank BRI, and Asset Data each render a distinct, active QA illustration
+11. Reduced-motion mode removes nonessential animation and shows complete terminal and roadmap content
+12. Keyboard navigation and focus indicators work
+13. JavaScript-disabled content remains readable
+14. No mojibake, placeholder text, invented metrics, or stale employment details remain
 
 ## Out of Scope
 
