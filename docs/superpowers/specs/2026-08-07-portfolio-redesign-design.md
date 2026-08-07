@@ -168,6 +168,7 @@ Content:
 - Track subtitle: Playwright - AI-Assisted Regression
 - Progress indicator
 - Previous, play/pause, and next controls
+- Real audio sourced from the user-provided `C:\Users\User\Downloads\urangsunda.weba`, copied into the deployed site as a WebM audio asset
 
 Interaction:
 
@@ -180,7 +181,11 @@ Interaction:
 - Controls use approximately `translateZ(64px)`
 - Waveform panel uses approximately `translateZ(80px)`
 - Internal scale compensation prevents translated layers from overlapping
-- The play/pause control pauses and resumes the waveform animation; it does not play audio
+- The play/pause control starts and pauses the real audio after an explicit user gesture
+- The waveform animation and progress indicator follow the audio playback state
+- The audio element uses `preload="metadata"` and never autoplays
+- Previous and next reset the current track because the approved player contains one audio source
+- If the browser cannot play the WebM audio source, the card remains usable as a static QA visualization and exposes a concise unsupported-format status
 
 The production implementation may tune exact depth and tilt values during responsive verification while preserving visibly separated layers.
 
@@ -195,6 +200,7 @@ The production implementation may tune exact depth and tilt values during respon
 - Desktop pointer interaction drives the 3D player
 - Touch devices receive a stable card with a subtle floating animation, without gyroscope or device-orientation permission
 - `prefers-reduced-motion` disables tilt, floating animation, and waveform motion
+- Reduced motion does not disable user-initiated audio playback
 - Every interactive element is keyboard reachable and has an accessible name
 - Focus styles remain visible against the dark background
 - Semantic headings, landmarks, links, and buttons are required
@@ -206,9 +212,10 @@ Keep the existing deployment model:
 
 - Static HTML for semantic content and page structure
 - Tailwind CSS plus focused custom CSS for the design system and 3D effects
-- Vanilla JavaScript for navigation, intersection observers, waveform controls, and pointer transforms
+- Vanilla JavaScript modules for navigation, intersection observers, audio and waveform controls, and pointer transforms
 - GitHub Pages-compatible output
 - No framework migration
+- No Svelte migration; the approved interactions do not require component-framework state management
 - No runtime API, database, or unnecessary dependency
 
 The latest CV replaces the older resume stored under `resource/` so the download CTA always serves the current document.
@@ -217,6 +224,8 @@ The latest CV replaces the older resume stored under `resource/` so the download
 
 - Without JavaScript, the navigation, content, project links, contact links, and resume download remain functional
 - The 3D player renders as a static card when scripting or motion is unavailable
+- The real audio never autoplays; playback begins only through the accessible play control
+- If audio loading or decoding fails, the play control reports the failure without hiding the player content
 - Missing project images must not hide project names or links
 - External links open safely with `rel="noopener noreferrer"`
 - Contact actions use direct URLs rather than simulated form submission
@@ -240,7 +249,7 @@ Before completion, verify:
 4. Hero and all sections render correctly at representative mobile, tablet, and desktop widths
 5. The 3D player produces a real `matrix3d` transform on pointer movement
 6. Player layers have distinct Z transforms and do not overlap or clip
-7. Play/pause changes waveform animation state
+7. The supplied WebM audio loads from the deployed site, and play/pause synchronizes audio, waveform animation, progress, elapsed time, and accessible control state
 8. The About terminal contains 13 semantic code lines and reveals them without removing content from the accessibility tree
 9. Work Journey chapters alternate left and right, the center line grows with scroll, and all four nodes activate at the correct milestones
 10. Yapp, Lion Parcel, Bank BRI, and Asset Data each render a distinct, active QA illustration
@@ -254,6 +263,5 @@ Before completion, verify:
 - React, Vue, Next.js, or another framework migration
 - A CMS or database
 - A working contact-message backend
-- Real audio playback
 - Copying Reja UI branding, copy, images, or proprietary component code
 - Adding claims or metrics not supported by the latest CV
