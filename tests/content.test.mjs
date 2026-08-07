@@ -37,6 +37,11 @@ test("keeps terminal lines and direct contact actions semantic", () => {
   assert.doesNotMatch(html, /<form\b/i);
 });
 
+test("keeps semantic terminal source separate from its visual typing output", () => {
+  assert.equal((html.match(/data-terminal-line/g) ?? []).length, 13);
+  assert.match(html, /data-terminal-output[^>]+aria-hidden=["']true["']/);
+});
+
 test("declares real audio without autoplay", () => {
   assert.match(html, /<audio[^>]+preload=["']metadata["']/);
   assert.match(html, /resource\/urangsunda\.webm/);

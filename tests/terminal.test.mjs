@@ -1,13 +1,19 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { terminalDelay } from "../src/js/terminal.mjs";
+import { buildTerminalFrames, terminalCharacterDelay } from "../src/js/terminal.mjs";
 
-test("stages terminal lines at a readable cadence", () => {
-  assert.equal(terminalDelay(0, false), 120);
-  assert.equal(terminalDelay(12, false), 1200);
+test("uses readable character cadence with punctuation pauses", () => {
+  assert.equal(terminalCharacterDelay("a", false), 22);
+  assert.equal(terminalCharacterDelay(",", false), 90);
+  assert.equal(terminalCharacterDelay("}", false), 90);
+  assert.equal(terminalCharacterDelay("\n", false), 160);
+  assert.equal(terminalCharacterDelay("a", true), 0);
 });
 
-test("reveals terminal lines immediately for reduced motion", () => {
-  assert.equal(terminalDelay(0, true), 0);
-  assert.equal(terminalDelay(12, true), 0);
+test("builds terminal frames without losing earlier line content", () => {
+  assert.deepEqual(buildTerminalFrames(["ab", "c"]), [
+    { lineIndex: 0, value: "a", delay: 22 },
+    { lineIndex: 0, value: "ab", delay: 160 },
+    { lineIndex: 1, value: "c", delay: 22 },
+  ]);
 });

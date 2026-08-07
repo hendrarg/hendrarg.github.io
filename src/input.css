@@ -294,7 +294,8 @@ input:focus-visible {
   font-weight: 500;
 }
 
-.terminal__code {
+.terminal__code,
+.terminal__typing {
   overflow-x: auto;
   padding-block: 1.25rem;
   counter-reset: code-line;
@@ -303,7 +304,12 @@ input:focus-visible {
   line-height: 1.85;
 }
 
-.terminal__code li {
+.terminal__typing {
+  display: none;
+}
+
+.terminal__code li,
+.terminal__typing li {
   display: grid;
   min-width: max-content;
   grid-template-columns: 3.5rem 1fr;
@@ -312,7 +318,8 @@ input:focus-visible {
   counter-increment: code-line;
 }
 
-.terminal__code li::before {
+.terminal__code li::before,
+.terminal__typing li::before {
   padding-right: 1rem;
   color: rgba(216, 211, 236, 0.28);
   content: counter(code-line, decimal-leading-zero);
@@ -321,40 +328,47 @@ input:focus-visible {
 }
 
 .terminal__code li:nth-child(5),
-.terminal__code li:nth-child(11) {
+.terminal__code li:nth-child(11),
+.terminal__typing li:nth-child(5),
+.terminal__typing li:nth-child(11) {
   background: linear-gradient(90deg, rgba(139, 92, 246, 0.13), transparent);
 }
 
 .token-keyword { color: #c084fc; }
 .token-string { color: #67e8f9; }
 
-.terminal__cursor {
+.terminal[data-typing-ready="true"] .terminal__code {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.terminal[data-typing-ready="true"] .terminal__typing {
+  display: block;
+  min-height: 29.3rem;
+}
+
+.terminal[data-state="typing"] .terminal__typing li[data-active] code::after,
+.terminal[data-state="complete"] .terminal__typing li:last-child code::after {
   display: inline-block;
   width: 0.55rem;
   height: 1rem;
   margin-left: 0.25rem;
   vertical-align: -0.15rem;
   background: #c084fc;
+  content: "";
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html[data-js="true"] .terminal [data-terminal-line] {
-    opacity: 0;
-    transform: translateX(-0.75rem);
-  }
-
-  html[data-js="true"] .terminal[data-active="true"] [data-terminal-line] {
-    animation: terminal-line-in 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: var(--line-delay, 0ms);
-  }
-
-  .terminal__cursor {
+  .terminal[data-state="typing"] .terminal__typing li[data-active] code::after,
+  .terminal[data-state="complete"] .terminal__typing li:last-child code::after {
     animation: terminal-cursor 900ms step-end infinite;
   }
-}
-
-@keyframes terminal-line-in {
-  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes terminal-cursor {
