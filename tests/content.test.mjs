@@ -42,3 +42,20 @@ test("declares real audio without autoplay", () => {
   assert.match(html, /resource\/urangsunda\.webm/);
   assert.doesNotMatch(html, /<audio[^>]+autoplay/i);
 });
+
+test("renders eight scan-friendly project cards", () => {
+  assert.equal((html.match(/data-project-card/g) ?? []).length, 8);
+  assert.doesNotMatch(html, /portfolio-carousel|portfolio-prev|portfolio-next/);
+});
+
+test("protects external tabs and image fallbacks", () => {
+  const externalLinks = [...html.matchAll(/<a\b[^>]*href=["']https?:[^>]*>/g)].map(([tag]) => tag);
+  assert.ok(externalLinks.length > 0);
+  for (const tag of externalLinks) {
+    assert.match(tag, /target=["']_blank["']/);
+    assert.match(tag, /rel=["']noopener noreferrer["']/);
+  }
+  for (const [, alt] of html.matchAll(/<img\b[^>]*alt=["']([^"']+)["'][^>]*>/g)) {
+    assert.ok(alt.trim());
+  }
+});

@@ -2,6 +2,7 @@ import { initJourney } from "./journey.mjs";
 import { initNavigation } from "./navigation.mjs";
 import { initAudioPlayer } from "./player-audio.mjs";
 import { initPlayerTilt } from "./player-tilt.mjs";
+import { initProjectTilt } from "./project-tilt.mjs";
 import { initTerminal } from "./terminal.mjs";
 
 document.documentElement.dataset.js = "true";
@@ -10,3 +11,4 @@ initTerminal({ document, window });
 initPlayerTilt({ document, window });
 initAudioPlayer({ document });
 initJourney({ document, window });
+initProjectTilt({ document, window });
