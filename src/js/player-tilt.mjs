@@ -16,6 +16,13 @@ export function calculateTilt(rect, clientX, clientY, maxTilt = 20) {
   };
 }
 
+export function calculateLayerOffset(tilt, maxOffset = 12) {
+  return {
+    x: cleanNumber((tilt.xRatio - 0.5) * maxOffset * 2),
+    y: cleanNumber((tilt.yRatio - 0.5) * maxOffset * 2),
+  };
+}
+
 export function initPlayerTilt({ document, window }) {
   const roots = [...document.querySelectorAll("[data-player]")];
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -30,11 +37,28 @@ export function initPlayerTilt({ document, window }) {
     const render = () => {
       frame = 0;
       if (!latestEvent) return;
-      const tilt = calculateTilt(root.getBoundingClientRect(), latestEvent.clientX, latestEvent.clientY);
+      const tilt = calculateTilt(root.getBoundingClientRect(), latestEvent.clientX, latestEvent.clientY, 18);
+      const offset = calculateLayerOffset(tilt);
       root.style.setProperty("--rotate-x", `${tilt.rotateX}deg`);
       root.style.setProperty("--rotate-y", `${tilt.rotateY}deg`);
       root.style.setProperty("--pointer-x", `${tilt.xRatio * 100}%`);
       root.style.setProperty("--pointer-y", `${tilt.yRatio * 100}%`);
+      root.style.setProperty("--layer-x", `${offset.x}px`);
+      root.style.setProperty("--layer-y", `${offset.y}px`);
+    };
+
+    const reset = () => {
+      root.dataset.hovered = "false";
+      root.style.setProperty("--rotate-x", "0deg");
+      root.style.setProperty("--rotate-y", "0deg");
+      root.style.setProperty("--pointer-x", "50%");
+      root.style.setProperty("--pointer-y", "50%");
+      root.style.setProperty("--layer-x", "0px");
+      root.style.setProperty("--layer-y", "0px");
+    };
+
+    const onPointerEnter = () => {
+      root.dataset.hovered = "true";
     };
 
     const onPointerMove = (event) => {
@@ -46,18 +70,18 @@ export function initPlayerTilt({ document, window }) {
       latestEvent = undefined;
       if (frame) window.cancelAnimationFrame(frame);
       frame = 0;
-      root.style.setProperty("--rotate-x", "0deg");
-      root.style.setProperty("--rotate-y", "0deg");
-      root.style.setProperty("--pointer-x", "50%");
-      root.style.setProperty("--pointer-y", "50%");
+      reset();
     };
 
+    root.addEventListener("pointerenter", onPointerEnter);
     root.addEventListener("pointermove", onPointerMove);
     root.addEventListener("pointerleave", onPointerLeave);
     cleanups.push(() => {
+      root.removeEventListener("pointerenter", onPointerEnter);
       root.removeEventListener("pointermove", onPointerMove);
       root.removeEventListener("pointerleave", onPointerLeave);
       if (frame) window.cancelAnimationFrame(frame);
+      reset();
     });
   }
 

@@ -466,6 +466,19 @@ input:focus-visible {
   --pointer-y: 50%;
   --rotate-x: 0deg;
   --rotate-y: 0deg;
+  --layer-x: 0px;
+  --layer-y: 0px;
+  --profile-depth: 0px;
+  --track-depth: 0px;
+  --timeline-depth: 0px;
+  --controls-depth: 0px;
+  --waveform-depth: 0px;
+  --glare-depth: 0px;
+  --profile-spread: 0px;
+  --track-spread: 0px;
+  --timeline-spread: 0px;
+  --controls-spread: 0px;
+  --waveform-spread: 0px;
   position: relative;
   z-index: 2;
   display: grid;
@@ -473,6 +486,20 @@ input:focus-visible {
   place-items: center;
   padding: 2rem;
   perspective: 1400px;
+}
+
+.quality-player[data-hovered="true"] {
+  --profile-depth: 35px;
+  --track-depth: 50px;
+  --timeline-depth: 65px;
+  --controls-depth: 75px;
+  --waveform-depth: 100px;
+  --glare-depth: 110px;
+  --profile-spread: -6px;
+  --track-spread: 7px;
+  --timeline-spread: 9px;
+  --controls-spread: 12px;
+  --waveform-spread: -10px;
 }
 
 .quality-player__card {
@@ -502,7 +529,8 @@ input:focus-visible {
   opacity: 0.35;
   mix-blend-mode: screen;
   pointer-events: none;
-  transform: translateZ(90px);
+  transform: translateZ(var(--glare-depth));
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .quality-player__surface {
@@ -540,7 +568,8 @@ input:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  transform: translateZ(36px) scale(0.985);
+  transform: translate3d(var(--layer-x), calc(var(--layer-y) + var(--profile-spread)), var(--profile-depth)) scale(0.985);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .quality-player__profile img {
@@ -578,7 +607,8 @@ input:focus-visible {
   border-radius: 1.5rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
   box-shadow: 0 22px 50px rgba(4, 2, 16, 0.22);
-  transform: translateZ(80px) scale(0.95);
+  transform: translate3d(var(--layer-x), calc(var(--layer-y) + var(--waveform-spread)), var(--waveform-depth)) scale(0.95);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 420ms ease;
 }
 
 .quality-player__waveform::after {
@@ -624,7 +654,8 @@ input:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  transform: translateZ(48px) scale(0.975);
+  transform: translate3d(var(--layer-x), calc(var(--layer-y) + var(--track-spread)), var(--track-depth)) scale(0.975);
+  transition: transform 370ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .quality-player__icon {
@@ -647,7 +678,8 @@ input:focus-visible {
   bottom: 6rem;
   display: grid;
   gap: 0.25rem;
-  transform: translateZ(56px) scale(0.97);
+  transform: translate3d(var(--layer-x), calc(var(--layer-y) + var(--timeline-spread)), var(--timeline-depth)) scale(0.97);
+  transition: transform 390ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .quality-player__timeline input { width: 100%; accent-color: var(--magenta); cursor: pointer; }
@@ -659,7 +691,8 @@ input:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 1.4rem;
-  transform: translateZ(64px) scale(0.965);
+  transform: translate3d(var(--layer-x), calc(var(--layer-y) + var(--controls-spread)), var(--controls-depth)) scale(0.965);
+  transition: transform 410ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .quality-player__controls button {
@@ -687,7 +720,8 @@ input:focus-visible {
   color: #fda4af;
   font-size: 0.7rem;
   text-align: center;
-  transform: translateZ(36px);
+  transform: translate3d(var(--layer-x), var(--layer-y), var(--profile-depth));
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (min-width: 1024px) {
@@ -719,6 +753,21 @@ input:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .quality-player {
+    --layer-x: 0px;
+    --layer-y: 0px;
+    --profile-depth: 0px;
+    --track-depth: 0px;
+    --timeline-depth: 0px;
+    --controls-depth: 0px;
+    --waveform-depth: 0px;
+    --glare-depth: 0px;
+    --profile-spread: 0px;
+    --track-spread: 0px;
+    --timeline-spread: 0px;
+    --controls-spread: 0px;
+    --waveform-spread: 0px;
+  }
   .quality-player__card { animation: none; transform: none !important; transition: none; }
   .quality-player__card::before { display: none; }
   .quality-player__waveform span { animation: none !important; }
