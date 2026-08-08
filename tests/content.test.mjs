@@ -55,7 +55,7 @@ test("renders the Python quicksort terminal with semantic syntax tokens", () => 
   const terminalBar = html.match(/<[^>]+class=["'][^"']*terminal__bar[^"']*["'][^>]*>([\s\S]*?)<\/div>/)?.[1] ?? "";
   const terminalSource = html.match(/<ol\b[^>]*class=["'][^"']*terminal__code[^"']*["'][^>]*>([\s\S]*?)<\/ol>/)?.[1] ?? "";
 
-  assert.match(terminalBar, /quicksort\.py/);
+  assert.match(terminalBar, /quality-profile\.ts/);
   assert.doesNotMatch(terminalSource, /aria-hidden=["']true["']/);
   for (const tokenClass of [
     "token-python-keyword",
