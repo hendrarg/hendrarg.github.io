@@ -92,16 +92,27 @@ test("protects external tabs and image fallbacks", () => {
 });
 
 test("defines the About checkpoint timeline with accessible decoration", () => {
-  const checkpointList = html.match(
-    /<(ul|ol)\b[^>]*\bdata-about-checkpoints(?:\s|=|>)[^>]*>([\s\S]*?)<\/\1>/,
+  const aboutSection = html.match(/<section\b[^>]*\bid=["']about["'][^>]*>([\s\S]*?)<\/section>/)?.[1] ?? "";
+  const checkpointWrapper = aboutSection.match(
+    /<div\b[^>]*class=["'][^"']*\babout-checkpoints\b[^"']*["'][^>]*data-about-checkpoints[^>]*>([\s\S]*?<ol\b[^>]*>[\s\S]*?<\/ol>[\s\S]*?)<\/div>/,
   );
+  assert.ok(checkpointWrapper, "missing the About checkpoint wrapper");
+  assert.match(checkpointWrapper[1], /<span\b[^>]*class=["'][^"']*\babout-checkpoints__line\b[^"']*["'][^>]*aria-hidden=["']true["']/);
+
+  const checkpointList = checkpointWrapper[1].match(/<(ol|ul)\b[^>]*>([\s\S]*?)<\/\1>/);
   assert.ok(checkpointList, "missing a semantic checkpoint list");
 
-  const checkpoints = [...checkpointList[2].matchAll(/<li\b[^>]*\bdata-about-checkpoint(?:\s|=|>)[^>]*>([\s\S]*?)<\/li>/g)];
+  const checkpoints = [...checkpointList[2].matchAll(/(<li\b[^>]*\bdata-about-checkpoint(?:\s|=|>)[^>]*>)([\s\S]*?)<\/li>/g)];
   assert.equal(checkpoints.length, 3);
-  assert.deepEqual(
-    checkpoints.map(([, content]) => content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()),
-    ["Build with intent", "Automate the critical path", "Ship with confidence"],
-  );
-  assert.match(checkpointList[2], /data-about-checkpoint-connector[^>]+aria-hidden=["']true["']/);
+  const labels = ["Build with intent", "Automate the critical path", "Ship with confidence"];
+  const copy = [
+    "Connect product needs to a clear quality strategy.",
+    "Cover Playwright, API, performance, and mobile flows.",
+    "Turn test evidence into clear release decisions.",
+  ];
+  for (const [index, [, opening, content]] of checkpoints.entries()) {
+    assert.match(content, new RegExp(`<strong>\\s*${labels[index]}\\s*<\\/strong>`));
+    assert.match(content, new RegExp(`<p>\\s*${copy[index]}\\s*<\\/p>`));
+    assert.match(opening, new RegExp(`style=["'][^"']*--checkpoint-delay:\\s*${index === 0 ? "0s" : index === 1 ? "0.75s" : "1.5s"}`));
+  }
 });
