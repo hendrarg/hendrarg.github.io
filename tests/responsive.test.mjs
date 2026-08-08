@@ -15,3 +15,12 @@ test("keeps player depth dormant until hover state is active", () => {
   assert.match(css, /\[data-hovered="true"\][^{]*\{[^}]*--profile-depth:\s*35px/s);
   assert.match(css, /--waveform-depth:\s*100px/);
 });
+
+test("uses a scrollable project fallback and a layered enhanced stage", () => {
+  assert.match(css, /\.project-carousel__stage\s*\{[^}]*overflow-x:\s*auto/s);
+  assert.match(css, /\.project-carousel\[data-enhanced="true"\][^{]*\.project-carousel__stage\s*\{[^}]*overflow:\s*visible/s);
+  assert.match(css, /\[data-slide-state="active"\]/);
+  assert.match(css, /\[data-slide-state="previous"\]/);
+  assert.match(css, /\[data-slide-state="next"\]/);
+  assert.match(css, /\[data-slide-state="back"\]/);
+});

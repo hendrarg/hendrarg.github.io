@@ -48,9 +48,13 @@ test("declares real audio without autoplay", () => {
   assert.doesNotMatch(html, /<audio[^>]+autoplay/i);
 });
 
-test("renders eight scan-friendly project cards", () => {
-  assert.equal((html.match(/data-project-card/g) ?? []).length, 8);
-  assert.doesNotMatch(html, /portfolio-carousel|portfolio-prev|portfolio-next/);
+test("renders eight projects inside an accessible carousel", () => {
+  assert.equal((html.match(/data-project-slide/g) ?? []).length, 8);
+  assert.match(html, /data-project-carousel/);
+  assert.match(html, /data-project-previous[^>]+aria-label=["']Previous project["']/);
+  assert.match(html, /data-project-next[^>]+aria-label=["']Next project["']/);
+  assert.match(html, /data-project-dots/);
+  assert.match(html, /data-project-caption[^>]+aria-live=["']polite["']/);
 });
 
 test("protects external tabs and image fallbacks", () => {
