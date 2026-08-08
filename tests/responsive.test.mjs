@@ -27,3 +27,13 @@ test("uses a scrollable project fallback and a layered enhanced stage", () => {
   assert.match(css, /\.project-carousel:focus-visible\s*\{[^}]*outline:/s);
   assert.match(css, /\.project-carousel__dots button\s*\{[^}]*width:\s*44px[^}]*height:\s*44px/s);
 });
+
+test("adds a staggered conic-gradient shine and disables it for reduced motion", () => {
+  const craftShine = css.match(/\.craft-card::before\s*\{[^}]+\}/s)?.[0] ?? "";
+  assert.match(craftShine, /conic-gradient/);
+  assert.match(craftShine, /animation-delay:\s*var\(--shine-delay\)/);
+  assert.match(
+    css,
+    /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[^}]*\.craft-card::before\s*\{[^}]*animation:\s*none/s,
+  );
+});

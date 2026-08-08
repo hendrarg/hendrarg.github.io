@@ -42,6 +42,29 @@ test("keeps semantic terminal source separate from its visual typing output", ()
   assert.match(html, /data-terminal-output[^>]+aria-hidden=["']true["']/);
 });
 
+test("marks each craft card with its staggered shine delay", () => {
+  const craftCards = [...html.matchAll(/<article\b[^>]*data-craft-card[^>]*>/g)].map(([card]) => card);
+  assert.equal(craftCards.length, 8);
+  assert.deepEqual(
+    craftCards.map((card) => card.match(/data-shine-delay=["']([^"']+)["']/)?.[1]),
+    ["0s", "1.2s", "2.4s", "3.6s", "4.8s", "6s", "7.2s", "8.4s"],
+  );
+});
+
+test("renders the Python quicksort terminal with semantic syntax tokens", () => {
+  assert.match(html, /<[^>]+class=["'][^"']*terminal__bar[^"']*["'][^>]*>[\s\S]*?quicksort\.py/);
+  for (const tokenClass of [
+    "token-python-keyword",
+    "token-python-function",
+    "token-python-builtin",
+    "token-python-string",
+    "token-python-number",
+    "token-python-comment",
+  ]) {
+    assert.match(html, new RegExp(`class=["'][^"']*${tokenClass}[^"']*["']`));
+  }
+});
+
 test("declares real audio without autoplay", () => {
   assert.match(html, /<audio[^>]+preload=["']metadata["']/);
   assert.match(html, /resource\/urangsunda\.webm/);
