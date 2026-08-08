@@ -99,6 +99,9 @@ test("defines the About checkpoint timeline with accessible decoration", () => {
   assert.ok(checkpointWrapper, "missing the About checkpoint wrapper");
   assert.match(checkpointWrapper[1], /<span\b[^>]*class=["'][^"']*\babout-checkpoints__line\b[^"']*["'][^>]*aria-hidden=["']true["']/);
 
+  const allCheckpoints = [...checkpointWrapper[1].matchAll(/<li\b[^>]*\bdata-about-checkpoint(?:\s|=|>)[^>]*>/g)];
+  assert.equal(allCheckpoints.length, 3);
+
   const checkpointList = checkpointWrapper[1].match(/<(ol|ul)\b[^>]*>([\s\S]*?)<\/\1>/);
   assert.ok(checkpointList, "missing a semantic checkpoint list");
 
@@ -111,6 +114,7 @@ test("defines the About checkpoint timeline with accessible decoration", () => {
     "Turn test evidence into clear release decisions.",
   ];
   for (const [index, [, opening, content]] of checkpoints.entries()) {
+    assert.match(content, /<span\b[^>]*class=["'][^"']*\babout-checkpoint__node\b[^"']*["'][^>]*aria-hidden=["']true["']/);
     assert.match(content, new RegExp(`<strong>\\s*${labels[index]}\\s*<\\/strong>`));
     assert.match(content, new RegExp(`<p>\\s*${copy[index]}\\s*<\\/p>`));
     assert.match(opening, new RegExp(`style=["'][^"']*--checkpoint-delay:\\s*${index === 0 ? "0s" : index === 1 ? "0.75s" : "1.5s"}`));
