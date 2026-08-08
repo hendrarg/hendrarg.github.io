@@ -10,6 +10,10 @@ test("contains the approved page structure", () => {
   }
 });
 
+test("cache-busts the generated stylesheet for static hosting", () => {
+  assert.match(html, /<link[^>]+href=["']dist\/output\.css\?v=[a-f0-9]+["']/i);
+});
+
 test("contains current CV facts", () => {
   for (const fact of [
     "Building reliable software, intelligently.",
