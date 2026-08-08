@@ -44,3 +44,14 @@ test("adds a staggered conic-gradient shine and disables it for reduced motion",
     /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[^}]*\.craft-card::before\s*\{[^}]*animation:\s*none/s,
   );
 });
+
+test("animates the About checkpoint loop and honors reduced motion", () => {
+  assert.match(css, /\.about-checkpoints::before/);
+  assert.match(css, /animation:\s*checkpoint-loop/);
+  assert.match(css, /animation-iteration-count:\s*infinite/);
+  assert.equal((css.match(/--checkpoint-delay\s*:/g) ?? []).length, 3);
+  assert.match(
+    css,
+    /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*?\.about-checkpoints::before\s*\{[^}]*animation:\s*none/s,
+  );
+});

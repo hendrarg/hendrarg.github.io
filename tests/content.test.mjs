@@ -90,3 +90,14 @@ test("protects external tabs and image fallbacks", () => {
     assert.ok(alt.trim());
   }
 });
+
+test("defines the About checkpoint timeline with accessible decoration", () => {
+  assert.match(html, /data-about-checkpoints/);
+
+  const checkpoints = [...html.matchAll(/<[^>]+\bdata-about-checkpoint(?:\s|=|>)[^>]*>/g)];
+  assert.equal(checkpoints.length, 3);
+  for (const label of ["Build with intent", "Automate the critical path", "Ship with confidence"]) {
+    assert.ok(html.includes(label), `missing ${label}`);
+  }
+  assert.match(html, /data-about-checkpoint-connector[^>]+aria-hidden=["']true["']/);
+});
