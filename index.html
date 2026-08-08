@@ -143,22 +143,22 @@
 
           <div class="terminal glass-panel" data-terminal data-reveal aria-label="Quality engineer profile code">
             <div class="terminal__bar" aria-hidden="true">
-              <span></span><span></span><span></span><strong>quality-profile.ts</strong>
+              <span></span><span></span><span></span><strong>quicksort.py</strong>
             </div>
             <ol class="terminal__code">
-              <li data-terminal-line><code><span class="token-keyword">const</span> qualityProfile = {</code></li>
-              <li data-terminal-line><code>  name: <span class="token-string">"Hendra Rizal Gunawan"</span>,</code></li>
-              <li data-terminal-line><code>  role: <span class="token-string">"QA Engineer"</span>,</code></li>
-              <li data-terminal-line><code>  experience: <span class="token-string">"5+ years"</span>,</code></li>
-              <li data-terminal-line><code>  current: <span class="token-string">"Yapp"</span>,</code></li>
-              <li data-terminal-line><code>  focus: [</code></li>
-              <li data-terminal-line><code>    <span class="token-string">"Playwright automation"</span>,</code></li>
-              <li data-terminal-line><code>    <span class="token-string">"Performance testing"</span>,</code></li>
-              <li data-terminal-line><code>    <span class="token-string">"AI-assisted QA"</span>,</code></li>
-              <li data-terminal-line><code>  ],</code></li>
-              <li data-terminal-line><code>  impact: <span class="token-string">"Regression success: 60% → 90%"</span>,</code></li>
-              <li data-terminal-line><code>  mindset: <span class="token-string">"Build confidence continuously"</span>,</code></li>
-              <li data-terminal-line><code>};</code></li>
+              <li data-terminal-line><code><span class="token-python-keyword">def</span> <span class="token-python-function">quicksort</span>(<span class="token-python-parameter">items</span>):</code></li>
+              <li data-terminal-line><code>    <span class="token-python-keyword">if</span> <span class="token-python-builtin">len</span>(items) &lt;= <span class="token-python-number">1</span>:</code></li>
+              <li data-terminal-line><code>        <span class="token-python-keyword">return</span> items</code></li>
+              <li data-terminal-line><code>    pivot = items[<span class="token-python-builtin">len</span>(items) // <span class="token-python-number">2</span>]</code></li>
+              <li data-terminal-line><code>    left = [x <span class="token-python-keyword">for</span> x <span class="token-python-keyword">in</span> items <span class="token-python-keyword">if</span> x &lt; pivot]</code></li>
+              <li data-terminal-line><code>    mid = [x <span class="token-python-keyword">for</span> x <span class="token-python-keyword">in</span> items <span class="token-python-keyword">if</span> x == pivot]</code></li>
+              <li data-terminal-line><code>    right = [x <span class="token-python-keyword">for</span> x <span class="token-python-keyword">in</span> items <span class="token-python-keyword">if</span> x &gt; pivot]</code></li>
+              <li data-terminal-line><code>    <span class="token-python-keyword">return</span> <span class="token-python-function">quicksort</span>(left) + mid + <span class="token-python-function">quicksort</span>(right)</code></li>
+              <li data-terminal-line><code></code></li>
+              <li data-terminal-line><code><span class="token-python-comment"># sort a small sample</span></code></li>
+              <li data-terminal-line><code>numbers = [<span class="token-python-number">8</span>, <span class="token-python-number">3</span>, <span class="token-python-number">1</span>, <span class="token-python-number">7</span>, <span class="token-python-number">0</span>, <span class="token-python-number">10</span>, <span class="token-python-number">2</span>]</code></li>
+              <li data-terminal-line><code><span class="token-python-string">"Ready to sort"</span></code></li>
+              <li data-terminal-line><code><span class="token-python-function">quicksort</span>(numbers)</code></li>
             </ol>
             <ol class="terminal__typing" data-terminal-output aria-hidden="true"></ol>
           </div>
