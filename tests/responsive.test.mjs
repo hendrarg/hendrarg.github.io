@@ -4,6 +4,13 @@ import { readFile } from "node:fs/promises";
 
 const css = await readFile(new URL("../src/input.css", import.meta.url), "utf8");
 
+test("allows the body to shrink below 320px without page-level horizontal overflow", () => {
+  const bodyRule = css.match(/body\s*\{[^}]+\}/s)?.[0] ?? "";
+
+  assert.doesNotMatch(bodyRule, /min-width\s*:/);
+  assert.match(bodyRule, /overflow-x:\s*hidden/);
+});
+
 test("compensates player control size for the 3D layer scale", () => {
   const controlsRule = css.match(/\.quality-player__controls button\s*\{[^}]+\}/s)?.[0] ?? "";
   assert.match(controlsRule, /width:\s*46px/);

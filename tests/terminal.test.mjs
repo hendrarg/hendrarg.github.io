@@ -1,13 +1,31 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildTerminalFrames, initTerminal, terminalCharacterDelay } from "../src/js/terminal.mjs";
+import * as terminalModule from "../src/js/terminal.mjs";
+
+const { buildTerminalFrames, initTerminal, terminalCharacterDelay } = terminalModule;
 
 class FakeTerminalNode {
   constructor(textContent = "") {
     this.attributes = new Set();
     this.children = [];
     this.dataset = {};
+    this._innerHTML = "";
     this.textContent = textContent;
+  }
+
+  get innerHTML() {
+    return this._innerHTML;
+  }
+
+  set innerHTML(value) {
+    this._innerHTML = value;
+    this.textContent = value
+      .replace(/<[^>]+>/g, "")
+      .replaceAll("&quot;", '"')
+      .replaceAll("&#39;", "'")
+      .replaceAll("&lt;", "<")
+      .replaceAll("&gt;", ">")
+      .replaceAll("&amp;", "&");
   }
 
   append(child) {
@@ -21,9 +39,9 @@ class FakeTerminalNode {
   }
 }
 
-function terminalFixture({ reducedMotion = false } = {}) {
+function terminalFixture({ reducedMotion = false, lines = ["ab", "c"] } = {}) {
   const output = new FakeTerminalNode();
-  const sourceCodes = [new FakeTerminalNode("ab"), new FakeTerminalNode("c")];
+  const sourceCodes = lines.map((line) => new FakeTerminalNode(line));
   const terminal = new FakeTerminalNode();
   terminal.querySelector = (selector) => (selector === "[data-terminal-output]" ? output : null);
   terminal.querySelectorAll = (selector) => (selector === "[data-terminal-line] code" ? sourceCodes : []);
@@ -94,6 +112,19 @@ test("builds terminal frames without losing earlier line content", () => {
   ]);
 });
 
+test("highlights Python syntax while escaping source text", () => {
+  const highlighted = terminalModule.highlightPythonLine?.('def quicksort(items): # use <pivot>');
+
+  assert.equal(
+    highlighted,
+    '<span class="token-python-keyword">def</span> <span class="token-python-function">quicksort</span>(items): <span class="token-python-comment"># use &lt;pivot&gt;</span>',
+  );
+  assert.equal(
+    terminalModule.highlightPythonLine?.('if len(items) <= 10: return "ready"'),
+    '<span class="token-python-keyword">if</span> <span class="token-python-builtin">len</span>(items) &lt;= <span class="token-python-number">10</span>: <span class="token-python-keyword">return</span> <span class="token-python-string">&quot;ready&quot;</span>',
+  );
+});
+
 test("starts typing once when the terminal intersects and cleans up its observer", () => {
   const fixture = terminalFixture();
   const cleanup = initTerminal({ document: fixture.document, window: fixture.window });
@@ -130,4 +161,21 @@ test("renders the complete terminal immediately for reduced motion", () => {
   );
   assert.equal(fixture.getObserver(), undefined);
   cleanup();
+});
+
+test("renders highlighted Python markup into the visual typing lifecycle", () => {
+  const fixture = terminalFixture({ lines: ['def quicksort(items):', 'return "ready"'] });
+  initTerminal({ document: fixture.document, window: fixture.window });
+
+  fixture.getObserver().callback([{ isIntersecting: true }]);
+  fixture.flushTimers();
+
+  assert.equal(
+    fixture.output.children[0].children[0].innerHTML,
+    '<span class="token-python-keyword">def</span> <span class="token-python-function">quicksort</span>(items):',
+  );
+  assert.equal(
+    fixture.output.children[1].children[0].innerHTML,
+    '<span class="token-python-keyword">return</span> <span class="token-python-string">&quot;ready&quot;</span>',
+  );
 });

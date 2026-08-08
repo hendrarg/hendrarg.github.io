@@ -21,7 +21,6 @@ html {
 }
 
 body {
-  min-width: 320px;
   overflow-x: hidden;
   background-color: var(--ink);
   background-image:
