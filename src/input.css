@@ -1161,9 +1161,32 @@ input:focus-visible {
   line-height: 1.65;
 }
 
-.craft-grid article {
+.craft-card {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
+}
+
+.craft-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.craft-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  box-sizing: border-box;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(196, 181, 253, 0.9) 42deg, transparent 92deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  content: "";
+  pointer-events: none;
+  animation: craft-shine 6.8s linear infinite;
+  animation-delay: var(--shine-delay);
 }
 
 .craft-grid article::after {
@@ -1175,6 +1198,17 @@ input:focus-visible {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent 68%);
   content: "";
+}
+
+@keyframes craft-shine {
+  to { transform: rotate(1turn); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .craft-card::before {
+    display: none;
+    animation: none;
+  }
 }
 
 .project-carousel {
