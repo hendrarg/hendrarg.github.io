@@ -45,11 +45,33 @@ test("adds a staggered conic-gradient shine and disables it for reduced motion",
   );
 });
 
-test("animates the About checkpoint loop and honors reduced motion", () => {
+test("keeps About checkpoint entrances staggered on one shared loop and honors reduced motion", () => {
   assert.match(css, /\.about-checkpoints::before/);
   const checkpointRule = css.match(/\.about-checkpoints\s+\[data-about-checkpoint\]\s*\{[^}]+\}/s)?.[0] ?? "";
-  assert.match(checkpointRule, /animation:\s*checkpoint-loop\b[^;]*\binfinite/);
-  assert.match(checkpointRule, /animation-delay:\s*var\(--checkpoint-delay\)/);
+  assert.match(checkpointRule, /animation:\s*checkpoint-loop-first\s+8s\b[^;]*\binfinite/);
+  assert.doesNotMatch(checkpointRule, /animation-delay\s*:/);
+
+  assert.match(
+    css,
+    /\.about-checkpoints\s+\[data-about-checkpoint\]:nth-child\(2\)\s*\{[^}]*animation-name:\s*checkpoint-loop-second/s,
+  );
+  assert.match(
+    css,
+    /\.about-checkpoints\s+\[data-about-checkpoint\]:nth-child\(3\)\s*\{[^}]*animation-name:\s*checkpoint-loop-third/s,
+  );
+
+  const schedules = [
+    ["checkpoint-loop-first", "8%", "18%"],
+    ["checkpoint-loop-second", "17.375%", "27.375%"],
+    ["checkpoint-loop-third", "26.75%", "36.75%"],
+  ];
+
+  for (const [name, hiddenUntil, visibleFrom] of schedules) {
+    const keyframes = css.match(new RegExp(`@keyframes\\s+${name}\\s*\\{([\\s\\S]*?)\\n\\}`))?.[1] ?? "";
+    assert.match(keyframes, new RegExp(`0%,\\s*${hiddenUntil.replace(".", "\\.")}\\s*\\{\\s*opacity:\\s*0`));
+    assert.match(keyframes, new RegExp(`${visibleFrom.replace(".", "\\.")},\\s*70%\\s*\\{\\s*opacity:\\s*1`));
+    assert.match(keyframes, /82%,\s*100%\s*\{\s*opacity:\s*0/);
+  }
 
   const reducedMotion = css.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? "";
   assert.match(
