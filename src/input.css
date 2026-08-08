@@ -1244,6 +1244,12 @@ input:focus-visible {
   transform-style: preserve-3d;
 }
 
+.project-carousel:focus-visible {
+  border-radius: 1.25rem;
+  outline: 3px solid var(--electric);
+  outline-offset: 0.75rem;
+}
+
 .project-carousel[data-enhanced="true"] .project-slide {
   position: absolute;
   top: 50%;
@@ -1326,14 +1332,24 @@ input:focus-visible {
 }
 
 .project-carousel__dots button {
+  position: relative;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.project-carousel__dots button::before {
   width: 0.65rem;
   height: 0.65rem;
   border: 1px solid rgba(167, 139, 250, 0.45);
   border-radius: 999px;
+  content: "";
   transition: width 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
 }
 
-.project-carousel__dots button[aria-selected="true"] {
+.project-carousel__dots button[aria-pressed="true"]::before {
   width: 1.75rem;
   background: linear-gradient(90deg, var(--magenta), var(--electric));
   box-shadow: 0 0 18px rgba(139, 92, 246, 0.45);

@@ -24,4 +24,6 @@ test("uses a scrollable project fallback and a layered enhanced stage", () => {
   assert.match(css, /\[data-slide-state="previous"\]/);
   assert.match(css, /\[data-slide-state="next"\]/);
   assert.match(css, /\[data-slide-state="back"\]/);
+  assert.match(css, /\.project-carousel:focus-visible\s*\{[^}]*outline:/s);
+  assert.match(css, /\.project-carousel__dots button\s*\{[^}]*width:\s*44px[^}]*height:\s*44px/s);
 });

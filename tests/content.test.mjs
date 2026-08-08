@@ -55,6 +55,8 @@ test("renders eight projects inside an accessible carousel", () => {
   assert.match(html, /data-project-next[^>]+aria-label=["']Next project["']/);
   assert.match(html, /data-project-dots/);
   assert.match(html, /data-project-caption[^>]+aria-live=["']polite["']/);
+  assert.doesNotMatch(html, /data-project-carousel[^>]+tabindex=/);
+  assert.match(html, /data-project-dots[^>]+role=["']group["']/);
 });
 
 test("protects external tabs and image fallbacks", () => {

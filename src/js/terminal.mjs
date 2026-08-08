@@ -1,7 +1,7 @@
 export function terminalCharacterDelay(character, reducedMotion = false) {
   if (reducedMotion) return 0;
   if (character === "\n") return 160;
-  if (",;]})".includes(character)) return 90;
+  if (",:;]})".includes(character)) return 90;
   return 22;
 }
 
