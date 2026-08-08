@@ -248,6 +248,74 @@ input:focus-visible {
   line-height: 1.8;
 }
 
+.about-checkpoints {
+  position: relative;
+  max-width: 42rem;
+  margin-top: 1.75rem;
+  overflow: hidden;
+}
+
+.about-checkpoints::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.about-checkpoints__line {
+  position: absolute;
+  top: 1.375rem;
+  bottom: 1.375rem;
+  left: 1.375rem;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(192, 132, 252, 0.7) 12%, rgba(192, 132, 252, 0.35) 88%, transparent);
+}
+
+.about-checkpoints ol {
+  display: grid;
+  gap: 1rem;
+}
+
+.about-checkpoints [data-about-checkpoint] {
+  display: grid;
+  min-height: 2.75rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  animation: checkpoint-loop 8s ease-in-out infinite;
+  animation-delay: var(--checkpoint-delay);
+}
+
+.about-checkpoint__node {
+  position: relative;
+  z-index: 1;
+  width: 0.8rem;
+  height: 0.8rem;
+  justify-self: center;
+  border: 2px solid #d8b4fe;
+  border-radius: 50%;
+  background: #170f31;
+  box-shadow: 0 0 0 0.35rem rgba(139, 92, 246, 0.16), 0 0 1rem rgba(192, 132, 252, 0.48);
+}
+
+.about-checkpoints strong {
+  display: block;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.about-checkpoints p {
+  margin-top: 0.3rem;
+  color: rgba(216, 211, 236, 0.72);
+  line-height: 1.6;
+}
+
+@keyframes checkpoint-loop {
+  0%, 8% { opacity: 0; transform: translateY(0.75rem); }
+  18%, 70% { opacity: 1; transform: translateY(0); }
+  82%, 100% { opacity: 0; transform: translateY(-0.35rem); }
+}
+
 .terminal {
   position: relative;
   min-width: 0;
@@ -769,6 +837,12 @@ input:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .about-checkpoints [data-about-checkpoint] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
   .quality-player {
     --layer-x: 0px;
     --layer-y: 0px;

@@ -129,16 +129,23 @@
           <div class="section-copy" data-reveal>
             <p class="eyebrow">About the engineer</p>
             <h2>Quality is a system, not a final checkpoint.</h2>
-            <p>
-              I build quality practices that connect product intent, reliable automation, performance feedback, and
-              release decisions. My work spans web, mobile, desktop, and API testing, with a growing focus on using AI
-              to make test design and maintenance faster without losing engineering judgment.
-            </p>
-            <p>
-              At Yapp, I shape Playwright E2E and API architecture while exploring Hermes-assisted workflows that turn
-              product requirements into structured test cases. Earlier roles taught me how to modernize legacy suites,
-              support complex banking flows, and build automation capability from the ground up.
-            </p>
+            <div class="about-checkpoints" data-about-checkpoints>
+              <span class="about-checkpoints__line" aria-hidden="true"></span>
+              <ol>
+                <li data-about-checkpoint style="--checkpoint-delay: 0s">
+                  <span class="about-checkpoint__node" aria-hidden="true"></span>
+                  <div><strong>Build with intent</strong><p>Connect product needs to a clear quality strategy.</p></div>
+                </li>
+                <li data-about-checkpoint style="--checkpoint-delay: 0.75s">
+                  <span class="about-checkpoint__node" aria-hidden="true"></span>
+                  <div><strong>Automate the critical path</strong><p>Cover Playwright, API, performance, and mobile flows.</p></div>
+                </li>
+                <li data-about-checkpoint style="--checkpoint-delay: 1.5s">
+                  <span class="about-checkpoint__node" aria-hidden="true"></span>
+                  <div><strong>Ship with confidence</strong><p>Turn test evidence into clear release decisions.</p></div>
+                </li>
+              </ol>
+            </div>
           </div>
 
           <div class="terminal glass-panel" data-terminal data-reveal aria-label="Quality engineer profile code">
