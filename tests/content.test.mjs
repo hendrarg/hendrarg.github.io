@@ -92,12 +92,16 @@ test("protects external tabs and image fallbacks", () => {
 });
 
 test("defines the About checkpoint timeline with accessible decoration", () => {
-  assert.match(html, /data-about-checkpoints/);
+  const checkpointList = html.match(
+    /<(ul|ol)\b[^>]*\bdata-about-checkpoints(?:\s|=|>)[^>]*>([\s\S]*?)<\/\1>/,
+  );
+  assert.ok(checkpointList, "missing a semantic checkpoint list");
 
-  const checkpoints = [...html.matchAll(/<[^>]+\bdata-about-checkpoint(?:\s|=|>)[^>]*>/g)];
+  const checkpoints = [...checkpointList[2].matchAll(/<li\b[^>]*\bdata-about-checkpoint(?:\s|=|>)[^>]*>([\s\S]*?)<\/li>/g)];
   assert.equal(checkpoints.length, 3);
-  for (const label of ["Build with intent", "Automate the critical path", "Ship with confidence"]) {
-    assert.ok(html.includes(label), `missing ${label}`);
-  }
-  assert.match(html, /data-about-checkpoint-connector[^>]+aria-hidden=["']true["']/);
+  assert.deepEqual(
+    checkpoints.map(([, content]) => content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()),
+    ["Build with intent", "Automate the critical path", "Ship with confidence"],
+  );
+  assert.match(checkpointList[2], /data-about-checkpoint-connector[^>]+aria-hidden=["']true["']/);
 });

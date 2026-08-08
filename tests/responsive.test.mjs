@@ -46,12 +46,14 @@ test("adds a staggered conic-gradient shine and disables it for reduced motion",
 });
 
 test("animates the About checkpoint loop and honors reduced motion", () => {
-  assert.match(css, /\.about-checkpoints::before/);
-  assert.match(css, /animation:\s*checkpoint-loop/);
-  assert.match(css, /animation-iteration-count:\s*infinite/);
+  const connectorRule = css.match(/\.about-checkpoints::before\s*\{[^}]+\}/s)?.[0] ?? "";
+  assert.match(connectorRule, /animation:\s*checkpoint-loop/);
+  assert.match(connectorRule, /animation-iteration-count:\s*infinite/);
   assert.equal((css.match(/--checkpoint-delay\s*:/g) ?? []).length, 3);
+
+  const reducedMotion = css.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? "";
   assert.match(
-    css,
-    /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*?\.about-checkpoints::before\s*\{[^}]*animation:\s*none/s,
+    reducedMotion,
+    /\.about-checkpoints::before\s*\{[^}]*animation:\s*none/s,
   );
 });
