@@ -76,6 +76,6 @@ test("keeps About checkpoint entrances staggered on one shared loop and honors r
   const reducedMotion = css.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? "";
   assert.match(
     reducedMotion,
-    /\.about-checkpoints\s+\[data-about-checkpoint\]\s*\{[^}]*animation:\s*none[^}]*opacity:\s*1[^}]*transform:\s*none/s,
+    /\.about-checkpoints\s+\[data-about-checkpoint\]\s*\{[^}]*animation:\s*none\s*!important[^}]*opacity:\s*1[^}]*transform:\s*none/s,
   );
 });

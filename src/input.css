@@ -858,7 +858,7 @@ input:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .about-checkpoints [data-about-checkpoint] {
-    animation: none;
+    animation: none !important;
     opacity: 1;
     transform: none;
   }
