@@ -334,14 +334,10 @@ input:focus-visible {
 }
 
 .token-keyword { color: #c084fc; }
+.token-function { color: #f0abfc; }
 .token-string { color: #67e8f9; }
-.token-python-keyword { color: #c084fc; }
-.token-python-function { color: #f0abfc; }
-.token-python-builtin { color: var(--electric); }
-.token-python-parameter { color: var(--mist); }
-.token-python-string { color: #67e8f9; }
-.token-python-number { color: #fbbf24; }
-.token-python-comment { color: rgba(216, 211, 236, 0.62); }
+.token-number { color: #fbbf24; }
+.token-comment { color: rgba(216, 211, 236, 0.62); }
 
 .terminal[data-typing-ready="true"] .terminal__code {
   position: absolute;

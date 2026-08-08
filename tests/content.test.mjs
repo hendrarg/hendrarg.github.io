@@ -51,20 +51,13 @@ test("marks each craft card with its staggered shine delay", () => {
   );
 });
 
-test("renders the Python quicksort terminal with semantic syntax tokens", () => {
+test("restores the quality profile terminal wording with semantic syntax tokens", () => {
   const terminalBar = html.match(/<[^>]+class=["'][^"']*terminal__bar[^"']*["'][^>]*>([\s\S]*?)<\/div>/)?.[1] ?? "";
   const terminalSource = html.match(/<ol\b[^>]*class=["'][^"']*terminal__code[^"']*["'][^>]*>([\s\S]*?)<\/ol>/)?.[1] ?? "";
 
   assert.match(terminalBar, /quality-profile\.ts/);
   assert.doesNotMatch(terminalSource, /aria-hidden=["']true["']/);
-  for (const tokenClass of [
-    "token-python-keyword",
-    "token-python-function",
-    "token-python-builtin",
-    "token-python-string",
-    "token-python-number",
-    "token-python-comment",
-  ]) {
+  for (const tokenClass of ["token-keyword", "token-string"]) {
     assert.match(terminalSource, new RegExp(`class=["'][^"']*${tokenClass}[^"']*["']`));
   }
 });

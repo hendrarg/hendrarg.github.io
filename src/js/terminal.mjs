@@ -21,47 +21,12 @@ export function buildTerminalFrames(lines, reducedMotion = false) {
   return frames;
 }
 
-const pythonKeywords = new Set([
-  "False",
-  "None",
-  "True",
-  "and",
-  "as",
-  "assert",
-  "async",
-  "await",
-  "break",
-  "case",
-  "class",
-  "continue",
-  "def",
-  "del",
-  "elif",
-  "else",
-  "except",
-  "finally",
-  "for",
-  "from",
-  "global",
-  "if",
-  "import",
-  "in",
-  "is",
-  "lambda",
-  "match",
-  "nonlocal",
-  "not",
-  "or",
-  "pass",
-  "raise",
-  "return",
-  "try",
-  "while",
-  "with",
-  "yield",
+const syntaxKeywords = new Set([
+  "as", "async", "await", "break", "case", "catch", "class", "const",
+  "continue", "def", "else", "export", "finally", "for", "from",
+  "function", "if", "import", "in", "let", "new", "return", "throw",
+  "try", "var", "while",
 ]);
-
-const pythonBuiltins = new Set(["enumerate", "len", "print", "range", "str"]);
 
 function escapeHtml(value) {
   return value
@@ -72,19 +37,19 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function pythonToken(className, value) {
-  return `<span class="token-python-${className}">${escapeHtml(value)}</span>`;
+function syntaxToken(className, value) {
+  return `<span class="token-${className}">${escapeHtml(value)}</span>`;
 }
 
-export function highlightPythonLine(line) {
+export function highlightSyntaxLine(line) {
   let highlighted = "";
   let index = 0;
 
   while (index < line.length) {
     const character = line[index];
 
-    if (character === "#") {
-      highlighted += pythonToken("comment", line.slice(index));
+    if (character === "#" || (character === "/" && line[index + 1] === "/")) {
+      highlighted += syntaxToken("comment", line.slice(index));
       break;
     }
 
@@ -97,7 +62,7 @@ export function highlightPythonLine(line) {
         }
         end += 1;
       }
-      highlighted += pythonToken("string", line.slice(index, end));
+      highlighted += syntaxToken("string", line.slice(index, end));
       index = end;
       continue;
     }
@@ -105,7 +70,7 @@ export function highlightPythonLine(line) {
     const remainder = line.slice(index);
     const number = remainder.match(/^\d+(?:\.\d+)?/);
     if (number) {
-      highlighted += pythonToken("number", number[0]);
+      highlighted += syntaxToken("number", number[0]);
       index += number[0].length;
       continue;
     }
@@ -114,12 +79,10 @@ export function highlightPythonLine(line) {
     if (identifier) {
       const value = identifier[0];
       const following = line.slice(index + value.length).trimStart();
-      const definitionName = /\b(?:class|def)\s+$/.test(line.slice(0, index));
       let className;
-      if (pythonKeywords.has(value)) className = "keyword";
-      else if (pythonBuiltins.has(value)) className = "builtin";
-      else if (definitionName || following.startsWith("(")) className = "function";
-      highlighted += className ? pythonToken(className, value) : escapeHtml(value);
+      if (syntaxKeywords.has(value)) className = "keyword";
+      else if (following.startsWith("(")) className = "function";
+      highlighted += className ? syntaxToken(className, value) : escapeHtml(value);
       index += value.length;
       continue;
     }
@@ -154,7 +117,7 @@ export function initTerminal({ document, window }) {
 
   const finishImmediately = () => {
     visualCodes.forEach((code, index) => {
-      code.innerHTML = highlightPythonLine(lines[index]);
+      code.innerHTML = highlightSyntaxLine(lines[index]);
     });
     terminal.dataset.state = "complete";
   };
@@ -172,7 +135,7 @@ export function initTerminal({ document, window }) {
       visualCodes.forEach((code, lineIndex) => {
         code.parentElement?.toggleAttribute("data-active", lineIndex === frame.lineIndex);
       });
-      visualCodes[frame.lineIndex].innerHTML = highlightPythonLine(frame.value);
+      visualCodes[frame.lineIndex].innerHTML = highlightSyntaxLine(frame.value);
       index += 1;
       if (index >= frames.length) {
         terminal.dataset.state = "complete";

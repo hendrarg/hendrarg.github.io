@@ -112,16 +112,16 @@ test("builds terminal frames without losing earlier line content", () => {
   ]);
 });
 
-test("highlights Python syntax while escaping source text", () => {
-  const highlighted = terminalModule.highlightPythonLine?.('def quicksort(items): # use <pivot>');
+test("highlights profile syntax while escaping source text", () => {
+  const highlighted = terminalModule.highlightSyntaxLine?.('const qualityProfile = { # use <quality>');
 
   assert.equal(
     highlighted,
-    '<span class="token-python-keyword">def</span> <span class="token-python-function">quicksort</span>(items): <span class="token-python-comment"># use &lt;pivot&gt;</span>',
+    '<span class="token-keyword">const</span> qualityProfile = { <span class="token-comment"># use &lt;quality&gt;</span>',
   );
   assert.equal(
-    terminalModule.highlightPythonLine?.('if len(items) <= 10: return "ready"'),
-    '<span class="token-python-keyword">if</span> <span class="token-python-builtin">len</span>(items) &lt;= <span class="token-python-number">10</span>: <span class="token-python-keyword">return</span> <span class="token-python-string">&quot;ready&quot;</span>',
+    terminalModule.highlightSyntaxLine?.('  name: "Hendra Rizal Gunawan",'),
+    '  name: <span class="token-string">&quot;Hendra Rizal Gunawan&quot;</span>,',
   );
 });
 
@@ -163,8 +163,8 @@ test("renders the complete terminal immediately for reduced motion", () => {
   cleanup();
 });
 
-test("renders highlighted Python markup into the visual typing lifecycle", () => {
-  const fixture = terminalFixture({ lines: ['def quicksort(items):', 'return "ready"'] });
+test("renders highlighted profile markup into the visual typing lifecycle", () => {
+  const fixture = terminalFixture({ lines: ["const qualityProfile = {", 'name: "Hendra"'] });
   initTerminal({ document: fixture.document, window: fixture.window });
 
   fixture.getObserver().callback([{ isIntersecting: true }]);
@@ -172,10 +172,10 @@ test("renders highlighted Python markup into the visual typing lifecycle", () =>
 
   assert.equal(
     fixture.output.children[0].children[0].innerHTML,
-    '<span class="token-python-keyword">def</span> <span class="token-python-function">quicksort</span>(items):',
+    '<span class="token-keyword">const</span> qualityProfile = {',
   );
   assert.equal(
     fixture.output.children[1].children[0].innerHTML,
-    '<span class="token-python-keyword">return</span> <span class="token-python-string">&quot;ready&quot;</span>',
+    'name: <span class="token-string">&quot;Hendra&quot;</span>',
   );
 });
