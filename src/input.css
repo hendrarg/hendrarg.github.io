@@ -1183,6 +1183,10 @@ input:focus-visible {
   perspective: 1200px;
 }
 
+.work-section {
+  overflow: clip;
+}
+
 .project-carousel__stage {
   display: flex;
   gap: 1rem;

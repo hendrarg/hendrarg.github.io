@@ -17,6 +17,7 @@ test("keeps player depth dormant until hover state is active", () => {
 });
 
 test("uses a scrollable project fallback and a layered enhanced stage", () => {
+  assert.match(css, /\.work-section\s*\{[^}]*overflow:\s*clip/s);
   assert.match(css, /\.project-carousel__stage\s*\{[^}]*overflow-x:\s*auto/s);
   assert.match(css, /\.project-carousel\[data-enhanced="true"\][^{]*\.project-carousel__stage\s*\{[^}]*overflow:\s*visible/s);
   assert.match(css, /\[data-slide-state="active"\]/);
