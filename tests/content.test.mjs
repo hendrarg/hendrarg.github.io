@@ -21,7 +21,7 @@ test("contains current CV facts", () => {
     "Yapp",
     "June 2026",
     "60%",
-    "90%",
+    "96%",
     "October 2025",
     "September 2025",
     "January 2022",
