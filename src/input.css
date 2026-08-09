@@ -97,6 +97,11 @@ input:focus-visible {
   backdrop-filter: blur(18px);
 }
 
+/* Keep anchor sections from sliding under the fixed header (80px) on nav clicks. */
+[data-nav-section] {
+  scroll-margin-top: 6rem;
+}
+
 .primary-menu {
   display: flex;
   align-items: center;
