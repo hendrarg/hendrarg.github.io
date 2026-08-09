@@ -97,6 +97,13 @@ input:focus-visible {
   backdrop-filter: blur(18px);
 }
 
+/* min-h-20 never existed in Tailwind v3.2, so the header collapsed to its
+   content height (~46px) and the 44px menu button filled it edge-to-edge.
+   Give the shell the 80px height the header was always designed to have. */
+.site-header .section-shell {
+  min-height: 5rem;
+}
+
 /* Impact is the only nav target with minimal top padding, so it needs a
    scroll-margin to clear the fixed header; other sections pad themselves. */
 #impact {
@@ -216,6 +223,9 @@ input:focus-visible {
 
   html[data-js="true"] .primary-menu[data-open] {
     display: grid;
+    /* One full-width row per link instead of a narrow column pushed right
+       by the flex-end rule above. */
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .primary-menu a {
