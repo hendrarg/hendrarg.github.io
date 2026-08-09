@@ -37,6 +37,10 @@ class FakeTerminalNode {
     if (force) this.attributes.add(name);
     else this.attributes.delete(name);
   }
+
+  removeAttribute(name) {
+    this.attributes.delete(name);
+  }
 }
 
 function terminalFixture({ reducedMotion = false, lines = ["ab", "c"] } = {}) {
@@ -84,11 +88,13 @@ function terminalFixture({ reducedMotion = false, lines = ["ab", "c"] } = {}) {
     },
   };
 
-  const flushTimers = () => {
-    while (timers.size) {
+  const flushTimers = (maxCount = Infinity) => {
+    let flushed = 0;
+    while (timers.size && flushed < maxCount) {
       const [timer, callback] = timers.entries().next().value;
       timers.delete(timer);
       callback();
+      flushed += 1;
     }
   };
 
@@ -127,7 +133,7 @@ test("highlights profile syntax while escaping source text", () => {
 
 test("starts typing once when the terminal intersects and cleans up its observer", () => {
   const fixture = terminalFixture();
-  const cleanup = initTerminal({ document: fixture.document, window: fixture.window });
+  const cleanup = initTerminal({ document: fixture.document, window: fixture.window, loop: false });
   const observer = fixture.getObserver();
 
   assert.equal(fixture.terminal.dataset.state, "idle");
@@ -160,12 +166,48 @@ test("renders the complete terminal immediately for reduced motion", () => {
     ["ab", "c"],
   );
   assert.equal(fixture.getObserver(), undefined);
+  assert.equal(fixture.timers.size, 0);
   cleanup();
+});
+
+test("retypes the profile from scratch in a loop once typing completes", () => {
+  const fixture = terminalFixture();
+  const cleanup = initTerminal({ document: fixture.document, window: fixture.window, loop: true });
+  fixture.getObserver().callback([{ isIntersecting: true }]);
+  assert.equal(fixture.terminal.dataset.state, "typing");
+  assert.equal(fixture.output.children[0].children[0].textContent, "a");
+
+  // Flush the two remaining frames → the first pass completes and schedules the hold.
+  fixture.flushTimers(2);
+  assert.equal(fixture.terminal.dataset.state, "complete");
+  assert.deepEqual(
+    fixture.output.children.map((item) => item.children[0].textContent),
+    ["ab", "c"],
+  );
+
+  // The hold timer fires → the output clears and typing restarts from line one.
+  fixture.flushTimers(1);
+  assert.equal(fixture.terminal.dataset.state, "typing");
+  assert.deepEqual(
+    fixture.output.children.map((item) => item.children[0].textContent),
+    ["a", ""],
+  );
+
+  // Drive the second pass to completion — the loop keeps going.
+  fixture.flushTimers(2);
+  assert.equal(fixture.terminal.dataset.state, "complete");
+  assert.deepEqual(
+    fixture.output.children.map((item) => item.children[0].textContent),
+    ["ab", "c"],
+  );
+
+  cleanup();
+  assert.equal(fixture.timers.size, 0);
 });
 
 test("renders highlighted profile markup into the visual typing lifecycle", () => {
   const fixture = terminalFixture({ lines: ["const qualityProfile = {", 'name: "Hendra"'] });
-  initTerminal({ document: fixture.document, window: fixture.window });
+  initTerminal({ document: fixture.document, window: fixture.window, loop: false });
 
   fixture.getObserver().callback([{ isIntersecting: true }]);
   fixture.flushTimers();

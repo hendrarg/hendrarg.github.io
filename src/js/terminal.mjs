@@ -21,6 +21,9 @@ export function buildTerminalFrames(lines, reducedMotion = false) {
   return frames;
 }
 
+// How long the completed profile stays on screen before the next typing pass.
+const LOOP_HOLD_DELAY = 1800;
+
 const syntaxKeywords = new Set([
   "as", "async", "await", "break", "case", "catch", "class", "const",
   "continue", "def", "else", "export", "finally", "for", "from",
@@ -94,7 +97,7 @@ export function highlightSyntaxLine(line) {
   return highlighted;
 }
 
-export function initTerminal({ document, window }) {
+export function initTerminal({ document, window, loop = true }) {
   const terminal = document.querySelector("[data-terminal]");
   const output = terminal?.querySelector("[data-terminal-output]");
   const sourceCodes = [...(terminal?.querySelectorAll("[data-terminal-line] code") ?? [])];
@@ -130,6 +133,16 @@ export function initTerminal({ document, window }) {
     const frames = buildTerminalFrames(lines);
     let index = 0;
 
+    const restart = () => {
+      visualCodes.forEach((code) => {
+        code.innerHTML = "";
+        code.parentElement?.removeAttribute("data-active");
+      });
+      index = 0;
+      terminal.dataset.state = "typing";
+      advance();
+    };
+
     const advance = () => {
       const frame = frames[index];
       visualCodes.forEach((code, lineIndex) => {
@@ -139,6 +152,7 @@ export function initTerminal({ document, window }) {
       index += 1;
       if (index >= frames.length) {
         terminal.dataset.state = "complete";
+        if (loop) timer = window.setTimeout(restart, LOOP_HOLD_DELAY);
         return;
       }
       timer = window.setTimeout(advance, frame.delay);
