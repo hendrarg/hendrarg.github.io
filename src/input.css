@@ -1596,6 +1596,13 @@ input:focus-visible {
   .hero-actions { align-items: stretch; flex-direction: column; }
   .button { width: 100%; }
   .content-section { padding-block: 4.5rem; }
+  /* Mobile cuts content-section padding to 4.5rem, so these headings would
+     land within ~35px of the 80px header. Nudge them further down. */
+  #journey,
+  #craft,
+  #work {
+    scroll-margin-top: 4rem;
+  }
   .section-heading { margin-bottom: 2rem; }
   .work-scrub[data-enhanced="true"] .work-scrub__panel {
     top: 5.5rem;
