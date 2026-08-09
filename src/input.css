@@ -209,23 +209,33 @@ input:focus-visible {
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 1rem;
-    display: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     width: min(18rem, calc(100vw - 2rem));
     align-items: stretch;
     gap: 0.25rem;
     padding: 0.75rem;
     border: 1px solid rgba(216, 211, 236, 0.14);
     border-radius: 1rem;
-    background: rgba(22, 16, 48, 0.96);
+    /* Frosted-glass dropdown: translucent gradient + blur so the page shows
+       through, matching the .glass-panel look used across the site. */
+    background: linear-gradient(145deg, rgba(39, 29, 76, 0.72), rgba(22, 16, 48, 0.58));
     box-shadow: 0 24px 60px rgba(4, 2, 16, 0.46);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
+    /* Closed by default; fades and slides in when opened. Reduced-motion
+       collapses this to an instant swap via the global override. */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms;
   }
 
   html[data-js="true"] .primary-menu[data-open] {
-    display: grid;
-    /* One full-width row per link instead of a narrow column pushed right
-       by the flex-end rule above. */
-    grid-template-columns: minmax(0, 1fr);
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .primary-menu a {
