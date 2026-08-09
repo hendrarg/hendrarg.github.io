@@ -97,8 +97,9 @@ input:focus-visible {
   backdrop-filter: blur(18px);
 }
 
-/* Keep anchor sections from sliding under the fixed header (80px) on nav clicks. */
-[data-nav-section] {
+/* Impact is the only nav target with minimal top padding, so it needs a
+   scroll-margin to clear the fixed header; other sections pad themselves. */
+#impact {
   scroll-margin-top: 6rem;
 }
 
