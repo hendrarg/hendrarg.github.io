@@ -23,16 +23,17 @@ test("keeps player depth dormant until hover state is active", () => {
   assert.match(css, /--waveform-depth:\s*100px/);
 });
 
-test("uses a scrollable project fallback and a layered enhanced stage", () => {
-  assert.match(css, /\.work-section\s*\{[^}]*overflow:\s*clip/s);
-  assert.match(css, /\.project-carousel__stage\s*\{[^}]*overflow-x:\s*auto/s);
-  assert.match(css, /\.project-carousel\[data-enhanced="true"\][^{]*\.project-carousel__stage\s*\{[^}]*overflow:\s*visible/s);
-  assert.match(css, /\[data-slide-state="active"\]/);
-  assert.match(css, /\[data-slide-state="previous"\]/);
-  assert.match(css, /\[data-slide-state="next"\]/);
-  assert.match(css, /\[data-slide-state="back"\]/);
-  assert.match(css, /\.project-carousel:focus-visible\s*\{[^}]*outline:/s);
-  assert.match(css, /\.project-carousel__dots button\s*\{[^}]*width:\s*44px[^}]*height:\s*44px/s);
+test("uses a readable static list and a sticky scroll-scrubbed panel when enhanced", () => {
+  assert.match(css, /\.work-scrub\[data-enhanced="true"\]\s+\.work-scrub__panel\s*\{[^}]*position:\s*sticky/s);
+  assert.match(css, /\.work-scrub\[data-enhanced="true"\]\s+\.work-scrub__panel\s*\{[^}]*top:\s*7rem/s);
+  assert.match(css, /\.work-scrub\[data-enhanced="true"\]\s+\.work-scrub__list\s*\{[^}]*display:\s*none/s);
+  assert.match(css, /\.work-scrub__media\s*\{[^}]*overflow:\s*hidden/s);
+  assert.match(css, /\.work-scrub__media img\[data-active="true"\]\s*\{[^}]*opacity:\s*1/s);
+  assert.match(css, /\.work-scrub__spacer\s*\{[^}]*height:\s*calc\(var\(--scrub-count,\s*8\)\s*\*\s*40vh\)/s);
+  assert.match(css, /\.work-item__copy a\s*\{[^}]*min-height:\s*44px/s);
+  assert.match(css, /@media\s*\(max-width:\s*639px\)\s*\{[\s\S]*?\.work-scrub__media\s*\{[^}]*order:\s*-1/s);
+  assert.doesNotMatch(css, /\.project-carousel/);
+  assert.doesNotMatch(css, /\.work-section\s*\{[^}]*overflow:\s*clip/);
 });
 
 test("adds a staggered conic-gradient shine and disables it for reduced motion", () => {

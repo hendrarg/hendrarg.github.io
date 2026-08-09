@@ -72,15 +72,25 @@ test("declares real audio without autoplay", () => {
   assert.doesNotMatch(html, /<audio[^>]+autoplay/i);
 });
 
-test("renders eight projects inside an accessible carousel", () => {
-  assert.equal((html.match(/data-project-slide/g) ?? []).length, 8);
-  assert.match(html, /data-project-carousel/);
-  assert.match(html, /data-project-previous[^>]+aria-label=["']Previous project["']/);
-  assert.match(html, /data-project-next[^>]+aria-label=["']Next project["']/);
-  assert.match(html, /data-project-dots/);
-  assert.match(html, /data-project-caption[^>]+aria-live=["']polite["']/);
-  assert.doesNotMatch(html, /data-project-carousel[^>]+tabindex=/);
-  assert.match(html, /data-project-dots[^>]+role=["']group["']/);
+test("renders eight scroll-scrubbed work projects", () => {
+  assert.match(html, /data-work-scrub/);
+  assert.match(html, /<ol\b[^>]*class=["'][^"']*\bwork-scrub__list\b[^"']*["'][^>]*\bdata-work-list\b/);
+  assert.equal((html.match(/data-work-item/g) ?? []).length, 8);
+  assert.equal((html.match(/data-work-image/g) ?? []).length, 8);
+
+  const workItems = [...html.matchAll(/<li\b[^>]*\bdata-work-item\b[^>]*>/g)].map(([tag]) => tag);
+  assert.equal(workItems.length, 8);
+  for (const tag of workItems) {
+    for (const key of ["data-title", "data-tech", "data-description", "data-href", "data-cta"]) {
+      assert.match(tag, new RegExp(`${key}=["']`), `missing ${key} on a work item`);
+    }
+  }
+
+  for (const hook of ["data-work-heading", "data-work-tech", "data-work-description", "data-work-link"]) {
+    assert.match(html, new RegExp(hook));
+  }
+  assert.match(html, /class=["'][^"']*\bwork-scrub__panel\b/);
+  assert.doesNotMatch(html, /data-project-/);
 });
 
 test("protects external tabs and image fallbacks", () => {
