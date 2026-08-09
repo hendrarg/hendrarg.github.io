@@ -37,9 +37,6 @@ export function initWorkScrub({ document, window }) {
     return () => {};
   }
 
-  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-  if (reducedMotion?.matches) return () => {};
-
   const header = document.querySelector("[data-header]");
   const triggerTop = (header?.offsetHeight ?? 0) + 40;
   const hasRAF = typeof window.requestAnimationFrame === "function";
@@ -75,13 +72,9 @@ export function initWorkScrub({ document, window }) {
     images.forEach((image) => image.removeAttribute("data-active"));
     active = -1;
   };
-  const onMotionChange = () => {
-    if (reducedMotion.matches) restore();
-  };
 
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", schedule, { passive: true });
-  reducedMotion.addEventListener?.("change", onMotionChange);
   root.style.setProperty("--scrub-count", String(items.length));
   root.dataset.enhanced = "true";
   schedule();
@@ -89,7 +82,6 @@ export function initWorkScrub({ document, window }) {
   return () => {
     window.removeEventListener("scroll", schedule);
     window.removeEventListener("resize", schedule);
-    reducedMotion.removeEventListener?.("change", onMotionChange);
     restore();
   };
 }

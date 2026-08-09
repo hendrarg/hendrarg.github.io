@@ -59,7 +59,7 @@ class FakeNode {
   }
 }
 
-function workScrubFixture({ reduced = false, innerHeight = 900 } = {}) {
+function workScrubFixture({ innerHeight = 900 } = {}) {
   const root = new FakeNode();
   root.rect = { top: 120, height: 3000 };
 
@@ -98,19 +98,8 @@ function workScrubFixture({ reduced = false, innerHeight = 900 } = {}) {
   };
 
   const windowListeners = new Map();
-  const motionHandlers = new Map();
-  const reducedMotion = {
-    matches: reduced,
-    addEventListener(type, handler) {
-      motionHandlers.set(type, handler);
-    },
-    removeEventListener(type) {
-      motionHandlers.delete(type);
-    },
-  };
   const window = {
     innerHeight,
-    matchMedia: () => reducedMotion,
     addEventListener(type, handler) {
       windowListeners.set(type, handler);
     },
@@ -132,8 +121,6 @@ function workScrubFixture({ reduced = false, innerHeight = 900 } = {}) {
     images,
     items,
     link,
-    motionHandlers,
-    reducedMotion,
     root,
     tech,
     window,
@@ -231,26 +218,29 @@ test("DOM adapter enhances, scrubs states on scroll, and restores the list on cl
   assert.equal(fixture.windowListeners.has("scroll"), false);
 });
 
-test("leaves the readable static list untouched under reduced motion", () => {
-  const fixture = workScrubFixture({ reduced: true });
+test("enhances the panel regardless of reduced-motion preference", () => {
+  // The fake window has no matchMedia at all — the enhancement must not depend
+  // on the reduced-motion media query. Instant transitions are handled in CSS.
+  const fixture = workScrubFixture();
   const cleanup = initWorkScrub({ document: fixture.document, window: fixture.window });
 
-  assert.equal(fixture.root.dataset.enhanced, undefined);
-  assert.equal(fixture.windowListeners.has("scroll"), false);
-  assert.equal(fixture.heading.textContent, "");
+  assert.equal(fixture.root.dataset.enhanced, "true");
+  assert.ok(fixture.windowListeners.has("scroll"));
+  assert.ok(fixture.windowListeners.has("resize"));
+  assert.equal(fixture.heading.textContent, "First");
+  assert.equal(fixture.images[0].getAttribute("data-active"), "true");
   cleanup();
   assert.equal(fixture.root.dataset.enhanced, undefined);
 });
 
-test("drops the enhancement when the user enables reduced motion mid-session", () => {
+test("scrubs states even under reduced motion", () => {
+  // Reduced motion only neutralizes the crossfade (CSS); state swapping still runs.
   const fixture = workScrubFixture();
   const cleanup = initWorkScrub({ document: fixture.document, window: fixture.window });
-  assert.equal(fixture.root.dataset.enhanced, "true");
 
-  fixture.reducedMotion.matches = true;
-  fixture.motionHandlers.get("change")();
-
-  assert.equal(fixture.root.dataset.enhanced, undefined);
-  assert.equal(fixture.images[0].getAttribute("data-active"), null);
+  fixture.root.rect.top = 120 - 2100 * 0.53;
+  fixture.windowListeners.get("scroll")();
+  assert.equal(fixture.heading.textContent, "Second");
+  assert.equal(fixture.images[1].getAttribute("data-active"), "true");
   cleanup();
 });
