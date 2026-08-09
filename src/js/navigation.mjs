@@ -39,13 +39,23 @@ export function initNavigation({ document, window }) {
 
   const onScroll = () => header?.toggleAttribute("data-stuck", window.scrollY > 24);
 
+  const onOutsideClick = (event) => {
+    // Close the mobile dropdown when tapping anywhere outside it.
+    if (toggle?.getAttribute("aria-expanded") !== "true") return;
+    if (menu?.contains(event.target)) return;
+    if (toggle?.contains(event.target)) return;
+    closeMenu();
+  };
+
   toggle?.addEventListener("click", toggleMenu);
   document.addEventListener("keydown", onEscape);
+  document.addEventListener("click", onOutsideClick);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
   if (toggle) cleanups.push(() => toggle.removeEventListener("click", toggleMenu));
   cleanups.push(() => document.removeEventListener("keydown", onEscape));
+  cleanups.push(() => document.removeEventListener("click", onOutsideClick));
   cleanups.push(() => window.removeEventListener("scroll", onScroll));
 
   for (const link of links) {
